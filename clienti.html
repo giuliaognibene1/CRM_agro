@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRM Clienti</title>
+<link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+<div class="dashboard">
+
+  <div class="sidebar">
+    <div class="logo">CRM</div>
+    <ul>
+      <li onclick="location.href='index.html'">📊 Dashboard</li>
+      <li onclick="location.href='clienti.html'">👥 Clienti</li>
+      <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+      <li onclick="location.href='calendario.html'">📅 Calendario</li>
+      <li onclick="location.href='config.html'">⚙️ Configuratore pivot</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <h1>Clienti</h1>
+
+    <h2 id="openModal" style="cursor:pointer;">➕Aggiungi Cliente</h2>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h3>Nuovo Cliente</h3>
+        <input type="text" id="nome" placeholder="Nome cliente">
+        <input type="text" id="email" placeholder="Email cliente">
+        <input type="text" id="telefono" placeholder="Telefono cliente">
+        <input type="text" id="indirizzo" placeholder="Indirizzo cliente">
+        <input type="text" id="partitaIva" placeholder="P.IVA / C.F. cliente">
+        <input type="text" id="note" placeholder="Note cliente">
+        <button onclick="aggiungiCliente(); chiudiModal();">Aggiungi nuovo cliente</button>
+      </div>
+    </div>
+    <h2>Elenco clienti</h2>
+    <input type="text" id="cerca" placeholder="Cerca cliente..." onkeyup="filtraClienti()">
+
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Telefono</th>
+          <th>Indirizzo</th>
+          <th>Note</th>
+          <th>Ticket attivi</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody id="tabellaClienti"></tbody>
+    </table>
+
+  </div>
+
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/clienti.js"></script>
+<script>
+  const modal = document.getElementById("modal");
+  const openBtn = document.getElementById("openModal");
+  const closeBtn = document.getElementById("closeModal");
+
+  openBtn.onclick = () => { modal.style.display = "block"; };
+  closeBtn.onclick = () => { modal.style.display = "none"; };
+
+  window.onclick = (event) => {
+    if(event.target === modal) modal.style.display = "none";
+  };
+
+  function chiudiModal() {
+    modal.style.display = "none";
+  }
+</script>
+</body>
+</html>

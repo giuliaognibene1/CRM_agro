@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<title>Configuratore Macchina</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body>
+
+<div class="dashboard">
+    <div class="sidebar">
+        <div class="logo">CRM</div>
+        <ul>
+            <li onclick="location.href='index.html'">📊 Dashboard</li>
+            <li onclick="location.href='clienti.html'">👥 Clienti</li>
+            <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+            <li onclick="location.href='calendario.html'">📅 Calendario</li>
+            <li onclick="location.href='config.html'">⚙️ Configuratore pivot</li>
+        </ul>
+    </div>
+    <div class="main">
+        <h1>Configuratore pivot</h1>
+
+        <h3>NOME CLIENTE: *</h3>
+        <input type="text" id="cliente" placeholder="Inserisci nome cliente">
+        <br><br>
+
+        <h3>CENTRO PIVOT</h3>
+        <!-- PIRAMIDE -->
+        <label>Pivot point:</label>
+        <select data-cat="Piramide" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="piramide_alto_profilo">Piramide alto profilo</option>
+            <option value="carro_4ruote_standard">Carro 4 ruote profilo standard</option>
+        </select>
+        <br>
+
+        <!-- CAMPATE -->
+        <h3>CAMPATE</h3>
+        <!-- INIZIALE -->
+        <label>Campata iniziale:</label>
+        <select id="campata_iniziale" onchange="aggiorna()">
+            <option value="">-- Nessuna --</option>
+            <option value="campata44_i">44</option>
+            <option value="campata50_i">50</option>
+            <option value="campata56_i">56</option>
+            <option value="campata62_i">62</option>
+        </select>
+        <br>
+
+        <!-- INTERMEDIE -->
+        <label>Campate intermedie:</label>
+        <div id="listaCampate"></div>
+        <button onclick="aggiungiCampata()">+ Aggiungi campata</button>
+        <br>
+
+        <!-- FINALE -->
+        <label>Campata finale:</label>
+        <select id="campata_finale" onchange="aggiorna()">
+            <option value="">-- Nessuna --</option>
+            <option value="campata44_f">44</option>
+            <option value="campata50_f">50</option>
+            <option value="campata56_f">56</option>
+            <option value="campata62_f">62</option>
+        </select>
+        <br>
+
+        <h3>SBRACCI</h3>
+        <!-- SBRACCIO -->
+        <label>Sbraccio:</label>
+        <select data-cat="Sbraccio" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="sbraccio10">10m</option>
+            <option value="sbraccio12">12m</option>
+            <option value="sbraccio14">14m</option>
+            <option value="sbraccio16">16m</option>
+            <option value="sbraccio18">18m</option>
+            <option value="sbraccio20">20m</option>
+            <option value="sbraccio24">24m</option>
+            <option value="sbraccio26">26m</option>
+        </select>
+
+        <h3>BARRIERA</h3>
+        <!-- BARRIERA -->
+        <label>Barriera:</label>
+        <select data-cat="Barriera" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="barriera_si">SI</option>
+            <option value="barriera_no">NO</option>
+        </select>
+
+        <!-- RISULTATI -->
+        <h2>Materiali per categoria</h2>
+        <div id="perCategoria"></div>
+
+        <h2>Totale materiali</h2>
+        <ul id="totale"></ul>
+
+        <button onclick="generaPDF()">Esporta PDF</button>
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+// DATI COMPONENTI
+const dati = {
+
+    // PIRAMIDE
+    carro_4ruote_standard: {
+    "QUESTA SELEZIONE NON CONTIENE ELEMENTI, SELEZIONA L'ALTRA OPZIONE": 1
+    },
+    piramide_alto_profilo: {
+    "12-91010-11 - KIT PIRAMIDE ALTO PROFILO + ANGOL. RINF.": 1,
+    "12-10071-11 - PIEDE PIRAMIDE PIVOT POINT": 4,
+    "12-400139 - KIT BULLONI PIRAMIDE STANDARD": 1,
+    "12-90030.01 - KIT ANCORE TIRAFONDI PIRAMIDE": 4,
+    "12-90085-01 - KIT PICCHETTO MESSA A TERRA PIRAMIDE": 1,
+    "12-400348 - CURVA SOPRA PIRAMIDE": 1,
+    "12-10491-11 - PROLUNGA SOTTO PIRAMIDE HP 6\"5/8": 1,
+    "12-10039-11 - TUBO RISER SOTTO CURVA PIRAMIDE STANDARD": 1,
+    "12-10046-41 - TUBO CONDOTTA J SOTTO CURVA PIRAMIDE": 1,
+    "12-10079-11 - CURVA SOTTO PIRAMIDE 8\"5/8": 1,
+    "12-9005499 - GUARNIZIONE PLASTICA OTTAGONO": 2,
+    "12-400690 - KIT FASTENERS EXTRA + 7/8\" FLEX JOINT": 1,
+    "12-02329-07 - TUBO GOMMA 6\"5/8 INTERMEZZO CAMPATA 50cm": 1,
+    "12-9008912 - FASCETTE FERRO ZN x TUBO GOMMA 6\"5/8": 4,
+    "12-90055-80 - KIT VALVOLA 2\" iCONTROL REMOTE + EVOTOUCH": 2,
+    "12-400798 - KIT IRRIGAZIONE 0-150 PSI + MANOMETRO": 1,
+    "12-9684834 - COLLETTORE ELET. x PIRAMIDE 11 FILI": 1,
+    "12-8286980 - CAVO x COLLETTORE PIRAM. 11 FILI 7.6M": 1,
+    "12-800015 - iCONTROL PANNELLO STANDARD PIRAMIDE": 1,
+    "12-10047 - SUPPORTO PANNELLO IC STANDARD 72MM": 2,
+    "12-10048 - SUPPORTO PANNELLO IC STANDARD 276MM": 2,
+    "12-10049 - SUPPORTO PANNELLO IC STANDARD 89MM": 2
+    },
+
+    // SBRACCI
+    sbraccio10: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 1,
+    "12-80050 - STAFFA V PICCOLA X TIRANTI SBRACCIO": 1,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-10223-11 - TUBO SBRACCIO 6\"5/8 L 3.7m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80057 - KIT SBRACCIO 9,6m x 6\"5/8": 1,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio12: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80050 - STAFFA V PICCOLA X TIRANTI SBRACCIO": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80058 - KIT SBRACCIO 11,9m x 6\"5/8": 1,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio14: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80050 - STAFFA V PICCOLA X TIRANTI SBRACCIO": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 1,
+    "12-10225-11 - TUBO SBRACCIO 4\" L 1.8m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80059 - KIT SBRACCIO 13,7m x 6\"5/8": 1,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio16: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80051 - STAFFA V GRANDE X TIRANTI SBRACCIO": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 1,
+    "12-10223-11 - TUBO SBRACCIO 6\"5/8 L 3.7m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80060 - KIT SBRACCIO 15,5m x 6\"5/8": 1,
+    "12-10141-01 - CAVO TIRANTE SBRACCIO  L 5.943m VERTICALE": 2,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-10121-01 - CAVO TIRANTE SBRACCIO L 12.210m": 2,
+    "12-10169-01 - CAVO TIRANTE SBRACCIO L 16.383m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio18: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80051 - STAFFA V GRANDE X TIRANTI SBRACCIO": 1,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-10160-11 - TUBO SBRACCIO 4\" L 11.9m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80061 - KIT SBRACCIO 17,8m x 6\"5/8": 1,
+    "12-10141-01 - CAVO TIRANTE SBRACCIO  L 5.943m VERTICALE": 2,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-10121-01 - CAVO TIRANTE SBRACCIO L 12.210m": 2,
+    "12-10154-01 - CAVO TIRANTE SBRACCIO L 18.006m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio20: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80051 - STAFFA V GRANDE X TIRANTI SBRACCIO": 1,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-10160-11 - TUBO SBRACCIO 4\" L 11.9m": 1,
+    "12-10225-11 - TUBO SBRACCIO 4\" L 1.8m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80062 - KIT SBRACCIO 19,7m x 6\"5/8": 1,
+    "12-10141-01 - CAVO TIRANTE SBRACCIO  L 5.943m VERTICALE": 2,
+    "12-10179-01 - CAVO TIRANTE SBRACCIO L 35.026m": 2,
+    "12-10121-01 - CAVO TIRANTE SBRACCIO L 12.210m": 2,
+    "12-10154-01 - CAVO TIRANTE SBRACCIO L 18.006m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+    sbraccio24: {
+    "12-90033-02 - KIT LUCE STROBO PER STAFFA V": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80154 - STAFFA V GIGANTE X TIRANTI SBRACCIO": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 1,
+    "12-10160-11 - TUBO SBRACCIO 4\" L 11.9m": 1,
+    "12-10084-11 - BRACCIO COMPRESSIONE x OVERHANG L5.4m": 2,
+    "12-80155 - KIT SBRACCIO 23,8m x 6\"5/8": 1,
+    "12-13268-11 - CAVO TIRANTE SBRACCIO  L 5.182m VERTICALE": 2,
+    "12-13269-11 - CAVO TIRANTE SBRACCIO L 11.582m": 2,
+    "12-13270-11 - CAVO TIRANTE SBRACCIO L 17.373m": 2,
+    "12-13271-11 - CAVO TIRANTE SBRACCIO L 23.164m": 2,
+    "12-90038-02 - KIT BOOSTER PUMP 5HP": 1,
+    "12-9331115 - PISTOLA TWIN MAX KOMET PC18": 1,
+    "12-401254 - IRRIGATORE FINALE VERDE R55i VT NELSON": 1,
+    "12-95.50011 - BOOSTER PUMP UMC 200GPM 460/380V": 1,
+    "12-80093 - KIT SCARICO SBRACCIO CON BOOSTER PUMP": 1
+    },
+
+    // CAMPATA INIZIALE
+    campata44_i: {
+    "12-10002-11 - TUBO CAMPATA INIZIO MACCHINA 1.219M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-80002 - KIT CAMPATA 44.20M": 1,
+    "12-80018 - KIT TRUSS ROD TIRANTI CAMPATA 44.20M": 1,
+    "12-91001-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 44.20": 1,
+    "12-03055-67 - CAVO 4x6 + 7x2,5 CAMPATA 44.20 (L.45.70)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-02 - BOX ELETTRICO TORRE PIRMA + BARRA ALLINEAMENTO": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata50_i: {
+    "12-10002-11 - TUBO CAMPATA INIZIO MACCHINA 1.219M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80003 - KIT CAMPATA 50.10M": 1,
+    "12-80019 - KIT TRUSS ROD TIRANTI CAMPATA 50.10M": 1,
+    "12-91002-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 50.10": 1,
+    "12-03055-68 - CAVO 4x6 + 7x2,5 CAMPATA 50.10 (L.51.80)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-02 - BOX ELETTRICO TORRE PIRMA + BARRA ALLINEAMENTO": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata56_i: {
+    "12-10002-11 - TUBO CAMPATA INIZIO MACCHINA 1.219M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-80004 - KIT CAMPATA 56.10M": 1,
+    "12-80020 - KIT TRUSS ROD TIRANTI CAMPATA 56.10M": 1,
+    "12-91003-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 56.10": 1,
+    "12-03055-69 - CAVO 4x6 + 7x2,5 CAMPATA 56.10 (L.57.90)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-02 - BOX ELETTRICO TORRE PIRMA + BARRA ALLINEAMENTO": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata62_i: {
+    "12-10002-11 - TUBO CAMPATA INIZIO MACCHINA 1.219M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80005 - KIT CAMPATA 62.00M": 1,
+    "12-80021 - KIT TRUSS ROD TIRANTI CAMPATA 62.00M": 1,
+    "12-91004-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 62.00": 1,
+    "12-03055-70 - CAVO 4x6 + 7x2,5 CAMPATA 62.00 (L.64.00)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-02 - BOX ELETTRICO TORRE PIRMA + BARRA ALLINEAMENTO": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+
+    // CAMPATE INTERMEDIE
+    campata44_m: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-80002 - KIT CAMPATA 44.20M": 1,
+    "12-80018 - KIT TRUSS ROD TIRANTI CAMPATA 44.20M": 1,
+    "12-91001-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 44.20": 1,
+    "12-03055-67 - CAVO 4x6 + 7x2,5 CAMPATA 44.20 (L.45.70)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-01 - BOX ELETTRICO TORRE INTERMEDIA + BARRA ALLINEAMENTO": 1,
+    "12-80042 - KIT TORRE DRIVE UNIT INTERMEDIA": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata50_m: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80003 - KIT CAMPATA 50.10M": 1,
+    "12-80019 - KIT TRUSS ROD TIRANTI CAMPATA 50.10M": 1,
+    "12-91002-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 50.10": 1,
+    "12-03055-68 - CAVO 4x6 + 7x2,5 CAMPATA 50.10 (L.51.80)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-01 - BOX ELETTRICO TORRE INTERMEDIA + BARRA ALLINEAMENTO": 1,
+    "12-80042 - KIT TORRE DRIVE UNIT INTERMEDIA": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata56_m: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-80004 - KIT CAMPATA 56.10M": 1,
+    "12-80020 - KIT TRUSS ROD TIRANTI CAMPATA 56.10M": 1,
+    "12-91003-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 56.10": 1,
+    "12-03055-69 - CAVO 4x6 + 7x2,5 CAMPATA 56.10 (L.57.90)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-01 - BOX ELETTRICO TORRE INTERMEDIA + BARRA ALLINEAMENTO": 1,
+    "12-80042 - KIT TORRE DRIVE UNIT INTERMEDIA": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata62_m: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80005 - KIT CAMPATA 62.00M": 1,
+    "12-80021 - KIT TRUSS ROD TIRANTI CAMPATA 62.00M": 1,
+    "12-91004-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 62.00": 1,
+    "12-03055-70 - CAVO 4x6 + 7x2,5 CAMPATA 62.00 (L.64.00)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE CAMPATA 7,454M": 1,
+    "12-90015-01 - BOX ELETTRICO TORRE INTERMEDIA + BARRA ALLINEAMENTO": 1,
+    "12-80042 - KIT TORRE DRIVE UNIT INTERMEDIA": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+
+    // CAMPATA FINALE
+    campata44_f: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-80002 - KIT CAMPATA 44.20M": 1,
+    "12-80018 - KIT TRUSS ROD TIRANTI CAMPATA 44.20M": 1,
+    "12-91001-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 44.20": 1,
+    "12-03055-67 - CAVO 4x6 + 7x2,5 CAMPATA 44.20 (L.45.70)": 1,
+    "12-10041-11 - TUBO CAMPATA FINE MACCHINA 7,489M": 1,
+    "12-90017-4GGS - iCONTROL REMOTE TOWER 4G V2": 1,
+    "12-80043 - KIT TORRE DRIVE UNIT FINALE": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata50_f: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 3,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80003 - KIT CAMPATA 50.10M": 1,
+    "12-80019 - KIT TRUSS ROD TIRANTI CAMPATA 50.10M": 1,
+    "12-91002-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 50.10": 1,
+    "12-03055-68 - CAVO 4x6 + 7x2,5 CAMPATA 50.10 (L.51.80)": 1,
+    "12-10041-11 - TUBO CAMPATA FINE MACCHINA 7,489M": 1,
+    "12-90017-4GGS - iCONTROL REMOTE TOWER 4G V2": 1,
+    "12-80043 - KIT TORRE DRIVE UNIT FINALE": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata56_f: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-80004 - KIT CAMPATA 56.10M": 1,
+    "12-80020 - KIT TRUSS ROD TIRANTI CAMPATA 56.10M": 1,
+    "12-91003-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 56.10": 1,
+    "12-03055-69 - CAVO 4x6 + 7x2,5 CAMPATA 56.10 (L.57.90)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE MACCHINA 7,489M": 1,
+    "12-90017-4GGS - iCONTROL REMOTE TOWER 4G V2": 1,
+    "12-80043 - KIT TORRE DRIVE UNIT FINALE": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+    campata62_f: {
+    "12-10004-11 - TUBO CAMPATA INIZIO CAMPATA 1.066M": 1,
+    "12-10189-11 - TUBO CAMPATA INTERMEDIO LUNGO 11.887M": 4,
+    "12-10190-11 - TUBO CAMPATA INTERMEDIO CORTO 5.943M": 1,
+    "12-80005 - KIT CAMPATA 62.00M": 1,
+    "12-80021 - KIT TRUSS ROD TIRANTI CAMPATA 62.00M": 1,
+    "12-91004-11 - KIT TRUSS PACCO ANGOLARI CAMPATA 62.00": 1,
+    "12-03055-70 - CAVO 4x6 + 7x2,5 CAMPATA 62.00 (L.64.00)": 1,
+    "12-10082-11 - TUBO CAMPATA FINE MACCHINA 7,489M": 1,
+    "12-90017-4GGS - iCONTROL REMOTE TOWER 4G V2": 1,
+    "12-80043 - KIT TORRE DRIVE UNIT FINALE": 1,
+    "12-10755-11 - ASSALE LUNGO CP600 ALTO PROFILO": 1,
+    "12-80091 - KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.": 1,
+    "12-10960-21 - LINEA DI TRASMISSIONE TORRE - 2,357m": 2,
+    "12-02298-07 - SCUDO ALBERO TRASMISS TORRE HP 2286mm": 2,
+    "12-PZ98924 - KIT CARDANO": 4,
+    "12-8297385 - SCUDO KIT CARDANO CILINDRO LUNGO": 4,
+    "12-9728986 - FASCETTE FE ZN 1\"1/2 (25-50mm)": 4,
+    "12-96V8456 - ELECTRIC MOTOR 44/35RPM 0,75HP 40:1": 1,
+    "12-8296679 - RIDUTTORE 0,55KW 0,75HP 50:1": 1,
+    "PNEUM.ANTE-14.9x24 - PNEUMATICO ANTER 14.9x24\" TR118 BKT": 1,
+    "PNEUM.POST-14.9x24 - PNEUMATICO POST 14.9x24\" TR118 BKT": 1
+    },
+
+    // BARRIERA
+    barriera_si: {
+    "12-8187997 - KIT 2° TIMER BARRIERA + AUTOREVERSE E iCR": 1,
+    "12-EOF-PKGCP600-HP - KIT PACCO HARDWARE AUTOREV. BARRIERA HP": 1,
+    "12-EOFBLHP-CP600 - KIT TRUSS PACCO ANGOLARI BARRIERA HP": 1,
+    "12-98.200390-11 - BARRIERA FINE CAMPO ASSEMBLATA": 2
+    },
+    barriera_no: { }
+};
+
+// AGGIUNGI RIGA CAMPATA INTERMEDIA
+function aggiungiCampata() {
+    let div = document.createElement("div");
+    div.className = "riga";
+
+    div.innerHTML = `
+        <select onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="campata44_m">44</option>
+            <option value="campata50_m">50</option>
+            <option value="campata56_m">56</option>
+            <option value="campata62_m">62</option>
+        </select>
+        <button onclick="this.parentElement.remove(); aggiorna()">X</button>
+    `;
+
+    document.getElementById("listaCampate").appendChild(div);
+}
+
+// FUNZIONE PRINCIPALE
+function aggiorna() {
+
+    let totale = {};
+    let perCategoria = {};
+
+    function aggiungi(componenti, categoria) {
+
+        if (!perCategoria[categoria]) perCategoria[categoria] = {};
+
+        for (let pezzo in componenti) {
+
+            if (!totale[pezzo]) totale[pezzo] = 0;
+            totale[pezzo] += componenti[pezzo];
+
+            if (!perCategoria[categoria][pezzo]) {
+                perCategoria[categoria][pezzo] = 0;
+            }
+            perCategoria[categoria][pezzo] += componenti[pezzo];
+        }
+    }
+
+    // SELECT NORMALI
+    document.querySelectorAll("select[data-cat]").forEach(select => {
+        let val = select.value;
+        if (dati[val]) aggiungi(dati[val], select.dataset.cat);
+    });
+
+    // CAMPATA INIZIALE
+    let iniziale = document.getElementById("campata_iniziale").value;
+    if (dati[iniziale]) aggiungi(dati[iniziale], "Campate");
+
+    // CAMPATE INTERMEDIE
+    document.querySelectorAll("#listaCampate select").forEach(select => {
+        let val = select.value;
+        if (dati[val]) aggiungi(dati[val], "Campate");
+    });
+
+    // CAMPATA FINALE
+    let finale = document.getElementById("campata_finale").value;
+    if (dati[finale]) aggiungi(dati[finale], "Campate");
+
+    // STAMPA PER CATEGORIA
+    let divCat = document.getElementById("perCategoria");
+    divCat.innerHTML = "";
+
+    for (let cat in perCategoria) {
+
+    let blocco = document.createElement("div");
+    blocco.className = "categoria";
+
+    let titolo = document.createElement("strong");
+    titolo.textContent = cat;
+    blocco.appendChild(titolo);
+
+    let ul = document.createElement("ul");
+
+    for (let pezzo in perCategoria[cat]) {
+
+        let li = document.createElement("li");
+
+        li.innerHTML = `
+            <span class="qty">${perCategoria[cat][pezzo]}</span>
+            <span class="sep">x</span>
+            <span class="name">${pezzo}</span>
+        `;
+
+        ul.appendChild(li);
+    }
+
+    blocco.appendChild(ul);
+    divCat.appendChild(blocco);
+}
+
+    // STAMPA TOTALE
+    let ulTot = document.getElementById("totale");
+    ulTot.innerHTML = "";
+
+    for (let pezzo in totale) {
+
+        let li = document.createElement("li");
+
+        li.innerHTML = `
+            <span class="qty">${totale[pezzo]}</span>
+            <span class="sep">x</span>
+            <span class="name">${pezzo}</span>
+        `;
+
+        ulTot.appendChild(li);
+    }
+}
+
+function getBase64Image(img) {
+    let canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+
+    let ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+
+    return canvas.toDataURL("image/png");
+}
+
+function disegnaHeader(doc, logo, cliente, data, pageNumber){
+
+    // LOGO
+    doc.addImage(logo, "PNG", 20, 10, 22, 22);
+
+    // AZIENDA
+    doc.setFont("helvetica","bold");
+    doc.setFontSize(12);
+    doc.text("AGRO+ SRL", 50, 15);
+
+    doc.setFont("helvetica","normal");
+    doc.setFontSize(9);
+    doc.text("Via Sacco e Vanzetti 21", 50, 21);
+    doc.text("42021 Bibbiano (RE)", 50, 26);
+    doc.text("info@agropiu.com - 0522 875924", 50, 31);
+
+    // CLIENTE + DATA
+    doc.setFontSize(10);
+    doc.text("Cliente: " + cliente, 20, 45);
+    doc.text("Data: " + data, 120, 45);
+
+    // PAGINA
+    doc.text("Pagina " + pageNumber, 180, 45);
+}
+
+async function generaPDF(){
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    let cliente = document.getElementById("cliente").value.trim();
+    if (!cliente) {
+        alert("Inserisci il nome del cliente prima di esportare il PDF");
+        return;
+    }
+
+    let data = new Date().toLocaleDateString();
+
+    let img = new Image();
+    img.src = "logo.png";
+
+    img.onload = function () {
+
+        let logo = getBase64Image(img);
+
+        creaPDF(doc, logo, cliente, data);
+    };
+}
+
+function creaPDF(doc, logo, cliente, data){
+
+    let righe = document.querySelectorAll("#totale li");
+
+    let pageHeight = doc.internal.pageSize.height;
+
+    let yStart = 65;
+    let y = yStart;
+
+    let pageNumber = 1;
+
+    // HEADER PRIMA PAGINA
+    disegnaHeader(doc, logo, cliente, data, pageNumber);
+
+    righe.forEach(riga => {
+
+        let qty  = riga.querySelector(".qty").innerText;
+        let sep  = riga.querySelector(".sep").innerText;
+        let nome = riga.querySelector(".name").innerText;
+
+        if (y > pageHeight - 20) {
+            doc.addPage();
+            pageNumber++;
+            y = yStart;
+
+            disegnaHeader(doc, logo, cliente, data, pageNumber);
+        }
+
+        doc.text(qty, 20, y);
+        doc.text(sep, 35, y);
+        doc.text(nome, 45, y);
+
+        y += 8;
+    });
+
+    doc.save("configurazione-pivot.pdf");
+}
+
+</script>
+
+</body>
+</html>

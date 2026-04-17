@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>CRM Calendario</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="sidebar">
+    <div class="logo">CRM</div>
+    <ul>
+      <li onclick="location.href='index.html'">📊 Dashboard</li>
+      <li onclick="location.href='clienti.html'">👥 Clienti</li>
+      <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+      <li class="active">📅 Calendario</li>
+      <li onclick="location.href='config.html'">⚙️ Configuratore pivot</li>
+    </ul>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="sezione active">
+      <h1>Calendario</h1>
+      <h2 id="meseAnno" style="text-align:center; margin-bottom:5px;"></h2>
+
+      <div style="display:flex; justify-content: center; gap:10px; margin-bottom:10px;">
+        <button onclick="cambiaMese(-1)">←</button>
+        <button onclick="cambiaMese(1)">→</button>
+      </div>
+
+      <div id="giorniSettimana" style="display:flex; justify-content: space-between; margin-top:10px;">
+        <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
+      </div>
+
+      <div id="grigliaGiorni" style="display:flex; flex-wrap: wrap; margin-top:5px;"></div>
+
+      <div id="eventiGiorno" style="margin-top:20px;">
+        <h3>Eventi del giorno selezionato: <span id="dataSelezionata"></span></h3>
+        <ul id="listaEventi"></ul>
+
+        <input type="text" id="titoloEvento" placeholder="Titolo evento">
+        <select id="ticketEvento">
+          <option value="">-- Collega a ticket --</option>
+        </select>
+        <button onclick="aggiungiEvento()">Aggiungi Evento</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/calendario.js"></script>
+</body>
+</html>

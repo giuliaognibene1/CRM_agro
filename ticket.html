@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<title>CRM Ticket</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="dashboard">
+
+  <div class="sidebar">
+    <div class="logo">CRM</div>
+    <ul>
+      <li onclick="location.href='index.html'">📊 Dashboard</li>
+      <li onclick="location.href='clienti.html'">👥 Clienti</li>
+      <li class="active">🎫 Ticket</li>
+      <li onclick="location.href='calendario.html'">📅 Calendario</li>
+      <li onclick="location.href='config.html'">⚙️ Configuratore pivot</li>
+    </ul>
+  </div>
+
+  <div class="main">
+
+    <h1>Gestione Ticket</h1>
+
+    <h2>Nuovo Ticket</h2>
+    <select id="clienteTicket"></select>
+    <input type="text" id="titoloTicket" placeholder="Titolo">
+    <textarea id="descrizioneTicket" placeholder="Descrizione"></textarea>
+    <select id="prioritaTicket">
+      <option>Bassa</option>
+      <option selected>Normale</option>
+      <option>Alta</option>
+    </select>
+    <button onclick="aggiungiTicket()">Aggiungi Ticket</button>
+
+    <h2>Ticket Attivi</h2>
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th class="col-cliente">Cliente</th>
+          <th class="col-titolo">Titolo</th>
+          <th class="col-descrizione">Descrizione</th>
+          <th class="col-data">Apertura</th>
+          <th class="col-azione">Chiudi</th>
+        </tr>
+      </thead>
+      <tbody id="tabellaTicketAttivi"></tbody>
+    </table>
+
+
+    <h2>Ticket Archiviati</h2>
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th class="col-cliente">Cliente</th>
+          <th class="col-titolo">Titolo</th>
+          <th class="col-descrizione">Descrizione</th>
+          <th class="col-data">Apertura</th>
+          <th class="col-data">Chiusura</th>
+        </tr>
+      </thead>
+      <tbody id="tabellaTicketArchiviati"></tbody>
+    </table>
+
+
+  </div>
+</div>
+
+<script src="js/ticket.js"></script>
+</body>
+</html>
