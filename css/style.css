@@ -92,13 +92,54 @@ th {
 /* =======================
    INPUT E BUTTON
 ======================= */
-input, select, textarea, button {
-  padding: 10px;
-  margin: 5px 0;
+input, select, textarea {
   width: 100%;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 12px 14px;
+  margin: 6px 0;
+  border-radius: 10px;
+  border: 1px solid #d0d7de;
+  background: #fff;
+  font-size: 15px;
   box-sizing: border-box;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+/* focus più visibile */
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: #44bd32;
+  box-shadow: 0 0 0 3px rgba(68, 189, 50, 0.15);
+}
+
+/* SELECT più leggibile */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-image: linear-gradient(45deg, transparent 50%, #555 50%),
+                    linear-gradient(135deg, #555 50%, transparent 50%);
+  background-position: calc(100% - 18px) calc(50% - 3px),
+                       calc(100% - 12px) calc(50% - 3px);
+  background-size: 6px 6px, 6px 6px;
+  background-repeat: no-repeat;
+
+  padding-right: 40px; /* spazio freccia */
+  cursor: pointer;
+}
+
+/* miglioramento mobile */
+@media (max-width: 768px) {
+  input, select, textarea {
+    font-size: 16px; /* evita zoom iOS */
+    padding: 14px;
+  }
+
+  select {
+    padding-right: 44px;
+  }
 }
 
 button {
