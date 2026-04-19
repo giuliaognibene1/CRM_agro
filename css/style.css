@@ -366,6 +366,22 @@ button:disabled {
   color: black;
 }
 
+.riga {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.riga select {
+    min-width: 180px;
+}
+
+.riga button {
+    padding: 6px 10px;
+    cursor: pointer;
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
