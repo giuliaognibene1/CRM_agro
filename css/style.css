@@ -4,7 +4,6 @@
 body {
   margin: 0;
   font-family: sans-serif;
-  font-size: 16px;
   background: #f5f6fa;
 }
 
@@ -222,11 +221,8 @@ button:hover {
    RESPONSIVE
 ======================= */
 @media(max-width: 900px) {
-  body {
-     font-size: 14px;
-     .dashboard {
-        flex-direction: column;
-     }
+  .dashboard {
+    flex-direction: column;
   }
 
   .sidebar {
@@ -250,10 +246,15 @@ button:hover {
 ======================= */
 
 .table-auto {
-  width: 100%;
+  min-width: 700px;
   max-width: 100%;
   border-collapse: collapse;
   table-layout: fixed; /* CHIAVE per non sforare */
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
 }
 
 .table-auto th,
@@ -388,4 +389,58 @@ button:hover {
 
 #miniCalendario .cal-cell.cal-day {
   font-weight: bold;
+}
+
+li {
+    display: flex;
+    gap: 10px;
+    padding: 6px 10px;
+    border-bottom: 1px solid #e6e6e6;
+    font-family: Arial;
+}
+
+li:hover {
+    background: #f5f5f5;
+}
+
+.qty {
+    font-weight: bold;
+    color: #black;
+    min-width: 30px;
+}
+
+.name {
+    flex: 1;
+}
+
+.categoria {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background: #fafafa;
+}
+
+.categoria strong {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.row {
+    display: grid;
+    grid-template-columns: 60px 10px 1fr;
+    padding: 6px;
+    border-bottom: 1px solid #eee;
+}
+
+.code {
+    font-family: monospace;
+    font-weight: bold;
+    color: #444;
+    min-width: 120px;
+}
+
+.name {
+    color: #222;
 }
