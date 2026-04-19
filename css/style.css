@@ -160,8 +160,11 @@ button:hover {
    RESPONSIVE
 ======================= */
 @media(max-width: 900px) {
-  .dashboard {
-    flex-direction: column;
+  body {
+     font-size: 14px;
+     .dashboard {
+        flex-direction: column;
+     }
   }
 
   .sidebar {
