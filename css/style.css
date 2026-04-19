@@ -12,7 +12,7 @@ body {
 ======================= */
 .dashboard {
   display: flex;
-  height: 100vh;
+  min-height: 100dvh;
 }
 
 .sidebar {
