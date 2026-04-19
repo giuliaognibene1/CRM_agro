@@ -119,6 +119,9 @@ select {
   -webkit-appearance: none;
   -moz-appearance: none;
 
+  background-color: #f1f2f6; /* grigio soft coerente col tuo th */
+  color: #2f3640;
+
   background-image: linear-gradient(45deg, transparent 50%, #555 50%),
                     linear-gradient(135deg, #555 50%, transparent 50%);
   background-position: calc(100% - 18px) calc(50% - 3px),
@@ -126,8 +129,26 @@ select {
   background-size: 6px 6px, 6px 6px;
   background-repeat: no-repeat;
 
-  padding-right: 40px; /* spazio freccia */
+  padding: 12px 40px 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #d0d7de;
+
+  font-size: 15px;
   cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+/* hover leggero (effetto “app”) */
+select:hover {
+  background-color: #e9ecf3;
+}
+
+/* focus più pulito */
+select:focus {
+  border-color: #44bd32;
+  box-shadow: 0 0 0 3px rgba(68, 189, 50, 0.15);
+  outline: none;
 }
 
 /* miglioramento mobile */
