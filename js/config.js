@@ -461,11 +461,48 @@ function aggiungiCampata() {
 /* =====================================================
    CALCOLO CONFIGURAZIONE
    ===================================================== */
+function nomePulito(valore) {
+
+    const nomi = {
+        piramide_alto_profilo: "Piramide alto profilo",
+        carro_4ruote_standard: "Carro 4 ruote standard",
+
+        sbraccio10: "10m",
+        sbraccio12: "12m",
+        sbraccio14: "14m",
+        sbraccio16: "16m",
+        sbraccio18: "18m",
+        sbraccio20: "20m",
+        sbraccio24: "24m",
+        sbraccio26: "26m",
+
+        barriera_si: "SI",
+        barriera_no: "NO",
+
+        campata44_i: "44 iniziale",
+        campata50_i: "50 iniziale",
+        campata56_i: "56 iniziale",
+        campata62_i: "62 iniziale",
+
+        campata44_m: "44 intermedia",
+        campata50_m: "50 intermedia",
+        campata56_m: "56 intermedia",
+        campata62_m: "62 intermedia",
+
+        campata44_f: "44 finale",
+        campata50_f: "50 finale",
+        campata56_f: "56 finale",
+        campata62_f: "62 finale"
+    };
+
+    return nomi[valore] || valore;
+}
 
 function aggiorna() {
 
     let totale = {};
     let perCategoria = {};
+    let composizione = {};
 
     function aggiungi(componenti, categoria) {
 
@@ -491,20 +528,28 @@ function aggiorna() {
     document.querySelectorAll("select[data-cat]").forEach(select => {
 
         let val = select.value;
+        let cat = select.dataset.cat;
 
         if (dati[val]) {
-            aggiungi(dati[val], select.dataset.cat);
+
+            aggiungi(dati[val], cat);
+
+            if (!composizione[cat]) composizione[cat] = [];
+
+            composizione[cat].push(nomePulito(val));
         }
     });
 
-
     /* CAMPATA INIZIALE */
     let iniziale = document.getElementById("campata_iniziale").value;
-
     if (dati[iniziale]) {
-        aggiungi(dati[iniziale], "Campate");
-    }
 
+        aggiungi(dati[iniziale], "Campate");
+
+        if (!composizione["Campate"]) composizione["Campate"] = [];
+
+        composizione["Campate"].push(nomePulito(iniziale));
+    }
 
     /* CAMPATE INTERMEDIE */
     document.querySelectorAll("#listaCampate select").forEach(select => {
@@ -513,15 +558,17 @@ function aggiorna() {
 
         if (dati[val]) {
             aggiungi(dati[val], "Campate");
+            composizione["Campate"].push(nomePulito(val));
         }
     });
 
 
     /* CAMPATA FINALE */
     let finale = document.getElementById("campata_finale").value;
-
     if (dati[finale]) {
         aggiungi(dati[finale], "Campate");
+        if (!composizione["Campate"]) composizione["Campate"] = [];
+        composizione["Campate"].push(nomePulito(finale));
     }
 
 
@@ -535,7 +582,13 @@ function aggiorna() {
         blocco.className = "categoria";
 
         let titolo = document.createElement("strong");
-        titolo.textContent = cat;
+        let testo = cat;
+
+        if (composizione[cat] && composizione[cat].length > 0) {
+            testo += " → " + composizione[cat].join(" → ");
+        }
+
+        titolo.textContent = testo;
 
         blocco.appendChild(titolo);
 
