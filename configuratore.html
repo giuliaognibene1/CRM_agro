@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuratore Macchina</title>
+
+<link rel="stylesheet" href="css/style.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script defer src="js/main.js"></script>
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="sidebar">
+        <div class="logo">CRM</div>
+        <ul id="submenu" class="submenu">
+            <li onclick="location.href='index.html'">📊 Dashboard</li>
+            <li onclick="location.href='clienti.html'">👥 Clienti</li>
+            <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+            <li onclick="location.href='calendario.html'">📅 Calendario</li>
+            <li class="active" onclick="location.href='configuratore.html'"> ⚙️ Configuratori</li>
+        </ul>
+    </div>
+
+    <div class="main">
+        <h1>Configuratori</h1>
+        <div class="button-container">
+            <button onclick="location.href='config_hangar.html'">Hangar</button>
+            <button onclick="location.href='config_pivot.html'">Pivot</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
