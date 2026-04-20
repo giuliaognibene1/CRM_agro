@@ -19,25 +19,27 @@
       <li onclick="location.href='configuratore.html'"> ⚙️ Configuratori</li>
     </ul>
   </div>
-  
-  <h1>Clienti</h1>
-  <input type="text" id="cerca" placeholder="Cerca cliente..." onkeyup="filtraClienti()">
 
-  <h2 id="openModal" style="cursor:pointer;">➕Aggiungi Cliente</h2>
-  <div id="modal" class="modal">
-    <div class="modal-content">
-      <span id="closeModal" class="close">&times;</span>
-      <h3>Nuovo Cliente</h3>
-      <input type="text" id="nome" placeholder="Nome cliente">
-      <input type="text" id="email" placeholder="Email cliente">
-      <input type="text" id="telefono" placeholder="Telefono cliente">
-      <input type="text" id="indirizzo" placeholder="Indirizzo cliente">
-      <input type="text" id="partitaIva" placeholder="P.IVA / C.F. cliente">
-      <input type="text" id="note" placeholder="Note cliente">
-      <button onclick="aggiungiCliente(); chiudiModal();">Aggiungi nuovo cliente</button>
+  <div class="main">
+    <h1>Clienti</h1>
+    <input type="text" id="cerca" placeholder="Cerca cliente..." onkeyup="filtraClienti()">
+  
+    <h2 id="openModal" style="cursor:pointer;">➕Aggiungi Cliente</h2>
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span id="closeModal" class="close">&times;</span>
+        <h3>Nuovo Cliente</h3>
+        <input type="text" id="nome" placeholder="Nome cliente">
+        <input type="text" id="email" placeholder="Email cliente">
+        <input type="text" id="telefono" placeholder="Telefono cliente">
+        <input type="text" id="indirizzo" placeholder="Indirizzo cliente">
+        <input type="text" id="partitaIva" placeholder="P.IVA / C.F. cliente">
+        <input type="text" id="note" placeholder="Note cliente">
+        <button onclick="aggiungiCliente(); chiudiModal();">Aggiungi nuovo cliente</button>
+      </div>
     </div>
   </div>
-  
+
   <div class="main">
     <h2>Elenco clienti</h2>
     <table class="table-auto">
