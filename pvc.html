@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<title>Lista Materiali</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+</head>
+
+<body>
+
+<div class="main">
+    <img src="logo.png" alt="Logo azienda" style="height:45px;">
+    <div>
+    <strong>AGRO+ SRL</strong><br>
+    Via Sacco e Vanzetti 21<br>
+    42021 Bibbiano (RE)<br>
+    info@agropiu.com<br>
+    0522 875924
+    </div>
+</div>
+<div class="main">
+    <div class="button-container">
+        <button onclick="window.location.href='prelievo.html'">⬅ Torna alla Home</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <label for="cliente" style="white-space:nowrap;"><strong>Cliente:</strong></label>
+        <input type="text" id="cliente" placeholder="Nome cliente">
+    </div>
+
+    <div style="margin-bottom:8px;">
+        <strong>Firma cliente:</strong>
+        <canvas id="firma" style="border:1px solid #ccc; width:100%; height:150px;"></canvas>
+        <button type="button" onclick="pulisciFirma()" style="margin-top:4px;">Pulisci firma</button>
+    </div>
+
+    <div style="margin:10px 0;">
+        <input
+            type="text"
+            id="ricercaMateriale"
+            placeholder="🔎 Cerca materiale..."
+            onkeyup="filtraTabella()"
+            style="width:100%; padding:8px; font-size:14px;"
+        >
+    </div>
+
+    <table class="table-auto">
+        <thead>
+            <tr>
+                <th>Usa</th>
+                <th>Materiale</th>
+                <th>Quantità</th>
+                <th>Unità</th>
+            </tr>
+        </thead>
+
+        <tbody id="tabella">
+
+        <!-- CURVE 90 -->
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 90 DN125 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 90 DN150 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 90 DN200 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 90 DN250 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- CURVE 45 -->
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 45 DN125 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 45 DN150 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 45 DN200 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>CURVA PVC 45 DN250 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- TEE -->
+        <tr><td><input type="checkbox"></td><td>TEE PVC DN125 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>TEE PVC DN150 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>TEE PVC DN200 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>TEE PVC DN250 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- RIDUZIONI -->
+        <tr><td><input type="checkbox"></td><td>RIDUZIONE PVC 150/125 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>RIDUZIONE PVC 200/150 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>RIDUZIONE PVC 250/200 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- GUARNIZIONI -->
+        <tr><td><input type="checkbox"></td><td>GUARNIZIONE X PVC DN125</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>GUARNIZIONE x PVC DN150</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>GUARNIZIONE x PVC DN200</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>GUARNIZIONE x PVC DN250</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- MANICOTTI -->
+        <tr><td><input type="checkbox"></td><td>MANICOTTO BIGIUNTO PVC DN125 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>MANICOTTO BIGIUNTO PVC DN150 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>MANICOTTO BIGIUNTO PVC DN200 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+        <tr><td><input type="checkbox"></td><td>MANICOTTO BIGIUNTO PVC DN250 PN16</td><td><input type="number" min="0"></td><td>pz</td></tr>
+
+        <!-- TUBI -->
+        <tr><td><input type="checkbox"></td><td>TUBO PVC DN125 PN16</td><td><input type="number" min="0"></td><td>m</td></tr>
+        <tr><td><input type="checkbox"></td><td>TUBO PVC DN150 PN16</td><td><input type="number" min="0"></td><td>m</td></tr>
+        <tr><td><input type="checkbox"></td><td>TUBO PVC DN200 PN16</td><td><input type="number" min="0"></td><td>m</td></tr>
+        <tr><td><input type="checkbox"></td><td>TUBO PVC DN250 PN16</td><td><input type="number" min="0"></td><td>m</td></tr>
+
+        </tbody>
+    </table>
+
+    <button onclick="generaPDF()">📄 Genera PDF</button>
+    <button onclick="generaExcel()">📊 Genera Excel</button>
+
+    <div class="error" id="errore"></div>
+
+</div>
+
+<script>
+// --- Firma su canvas ---
+const canvas = document.getElementById('firma');
+const ctx = canvas.getContext('2d');
+let disegnando = false;
+
+// Dimensioni corrette del canvas
+canvas.width = canvas.offsetWidth;
+canvas.height = 150;
+
+ctx.lineWidth = 2;
+ctx.lineCap = "round";
+
+// --- Funzioni per mouse ---
+canvas.addEventListener('mousedown', e => {
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+});
+canvas.addEventListener('mousemove', e => {
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('mouseup', () => disegnando = false);
+canvas.addEventListener('mouseout', () => disegnando = false);
+
+// --- Funzioni per touch ---
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault(); // evita scroll
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.beginPath();
+    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('touchend', () => disegnando = false);
+canvas.addEventListener('touchcancel', () => disegnando = false);
+
+// --- Pulisci firma ---
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// --- Ottieni firma in base64 ---
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Funzione per ottenere immagine firma in base64
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function raccogliDati() {
+    const cliente = document.getElementById("cliente").value.trim();
+    const firma = getFirmaDataURL();  // <--- aggiungi questa riga
+    const righe = document.querySelectorAll("#tabella tr");
+    let dati = [];
+
+    for (let r of righe) {
+        const check = r.querySelector('input[type="checkbox"]');
+        const q = r.querySelector('input[type="number"]').value;
+        const mat = r.children[1].innerText;
+        const un = r.children[3].innerText;
+
+        if (check.checked) {
+            if (!q || Number(q) <= 0) {
+                return { errore: "Quantità mancante per materiale selezionato." };
+            }
+            dati.push([mat, q, un]);
+        }
+    }
+
+    if (!cliente) return { errore: "Inserire il nome del cliente." };
+    if (dati.length === 0) return { errore: "Selezionare almeno un materiale." };
+
+    return { cliente, dati, firma }; // <--- aggiungi firma qui
+}
+
+function resetModulo() {
+    document.getElementById("cliente").value = "";
+    document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+    document.querySelectorAll("input[type=number]").forEach(n => n.value = "");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // pulisci canvas firma
+}
+
+function generaPDF() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) {
+        err.innerText = res.errore;
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Caricamento logo
+    const logo = new Image();
+    logo.src = "logo.png";
+
+    logo.onload = function () {
+
+        // Logo
+        doc.addImage(logo, "PNG", 10, 8, 30, 15);
+
+        // Dati azienda
+        doc.setFontSize(10);
+        doc.text("AGRO+ SRL", 45, 12);
+        doc.text("Via Sacco e Vanzetti 21", 45, 17);
+        doc.text("42021 Bibbiano (RE)", 45, 22);
+        doc.text("info@agropiu.com", 45, 27);
+        doc.text("0522 875924", 45, 32);
+
+        // Cliente
+        doc.setFontSize(12);
+        doc.text("Cliente: " + res.cliente, 10, 45);
+
+        // Data accanto al cliente
+        const oggi = new Date();
+        const giorno = String(oggi.getDate()).padStart(2,'0');
+        const mese = String(oggi.getMonth()+1).padStart(2,'0');
+        const anno = oggi.getFullYear();
+        doc.setFontSize(10);
+        doc.text("Data: " + giorno + "/" + mese + "/" + anno, 150, 45); // a destra della pagina
+
+        // --- Corpo tabella PDF ---
+        doc.setFontSize(11);
+        const startY = 60;
+        let y = startY;
+
+        // Intestazione tabella
+        doc.text("Materiale", 10, y);
+        doc.text("Quantità", 120, y);
+        doc.text("Unità", 150, y);
+        y += 6;
+        doc.line(10, y, 200, y); // linea sotto intestazione
+        y += 4;
+
+        // Dati tabella
+        res.dati.forEach(d => {
+            if (y > 280) { doc.addPage(); y = 20; } // nuova pagina se necessario
+            doc.text(d[0], 10, y);
+            doc.text(d[1].toString(), 120, y);
+            doc.text(d[2], 150, y);
+            y += 8;
+        });
+
+        // Firma cliente (se presente)
+        if (res.firma) {
+            if (y > 230) { doc.addPage(); y = 20; }
+            doc.text("Firma cliente:", 10, y + 10);
+            doc.addImage(res.firma, "PNG", 50, y, 100, 50);
+        }
+
+        // Salvataggio e reset
+        doc.save(`Lista_materiali_${res.cliente}.pdf`);
+        resetModulo();
+    };
+}
+
+function generaExcel() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) { err.innerText = res.errore; return; }
+
+    const wsData = [
+        ["Azienda", "AZIENDA AGRICOLA"],
+        ["Cliente", res.cliente],
+        [],
+        ["Materiale", "Quantità", "Unità"],
+        ...res.dati
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, "Materiali");
+
+    XLSX.writeFile(wb, `Lista_materiali_${res.cliente}.xlsx`);
+    resetModulo();
+}
+
+function filtraTabella() {
+    const filtro = document.getElementById("ricercaMateriale").value.toLowerCase();
+    const righe = document.querySelectorAll("#tabella tr");
+
+    righe.forEach(riga => {
+        const descrizione = riga.children[1].innerText.toLowerCase();
+
+        if (descrizione.includes(filtro)) {
+            riga.style.display = "";
+        } else {
+            riga.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
