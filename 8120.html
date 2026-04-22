@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<title>Ricambi 8120</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div class="main">
+    <img src="logo.png" alt="Logo azienda" style="height:45px;">
+    <div>
+    <strong>AGRO+ SRL</strong><br>
+    Via Sacco e Vanzetti 21<br>
+    42021 Bibbiano (RE)<br>
+    info@agropiu.com<br>
+    0522 875924
+    </div>
+</div>
+
+<div class="main">
+    <div class="button-container">
+        <button onclick="window.location.href='prelievo.html'">⬅ Torna alla Home</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <label for="cliente" style="white-space:nowrap;"><strong>Cliente:</strong></label>
+        <input type="text" id="cliente" placeholder="Nome cliente">
+    </div>
+
+    <div style="margin-bottom:8px;">
+        <strong>Firma cliente:</strong>
+        <canvas id="firma" style="border:1px solid #ccc; width:100%; height:150px;"></canvas>
+        <button type="button" onclick="pulisciFirma()" style="margin-top:4px;">Pulisci firma</button>
+    </div>
+
+    <div style="margin:10px 0;">
+        <input
+            type="text"
+            id="ricercaMateriale"
+            placeholder="🔎 Cerca materiale..."
+            onkeyup="filtraTabella()"
+            style="width:100%; padding:8px; font-size:14px;"
+        >
+    </div>
+
+    <table class="table-auto">
+        <thead>
+            <tr>
+                <th>Usa</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Quantità</th>
+                <th>Unità</th>
+            </tr>
+        </thead>
+        <tbody id="tabella">
+        <tr><td><input type='checkbox'></td><td>0191026</td><td>8120 - PARAOLIO OUTPUT SHAFT BEARING CUP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0221001</td><td>8120 - GUARNIZIONE GOMMA TUBO RISER 8"</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0231059</td><td>8120 - REGOLATORE PRESS. SENNING. 20PSI</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0232361</td><td>8120 - GOMITO OTTONE MASCHIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0232480</td><td>8120 - VALVOLA ACQUA 2" ROSSA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0232483</td><td>8120 - VALVOLA ACQUA 3/4" CORNER ROSSA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0254004</td><td>8120 - GUARNIZIONE GOMMA "V" TUBO J 1"</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0258023</td><td>8120 - PARAOLIO INPUT SHAFT SEAL</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0258024</td><td>8120 - PARAOLIO OUTPUT SHAFT SEAL</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0258028</td><td>8120 - GUARN. PARAOLIO RIDUTTORE CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0272010</td><td>8120 - TUBO GOMMA 4"1/2 x CORNER VALLEY</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0314343</td><td>8120 - FUSIBILE 12A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0314610</td><td>8120 - RELAY 120V 3A 4 POSIC KHU17A12</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0314936</td><td>8120 - RELAY 120V 3 POLI KUP14A15</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0315017</td><td>8120 - FUSIBILE 3/8A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0315019</td><td>8120 - FUSIBILE 3/4A - 250V</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0315130</td><td>8120 - LIGHTING ARRESTER PARAFULMINE480V</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0315610</td><td>8120 - SCHEDA PCB RECEIVFER PROTECTION</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0315994</td><td>8120 - PRESSURE SWITCH E1S-H15-Q52</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E0307</td><td>8120 - MICRO ELC MIN TRAVEL BZ-3RW</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1501</td><td>8120 - ELC MS GUIDANCE RECEIVER PHONEIX</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1620</td><td>8120 - FUSIBILE 8A - 600V CLASSE CC</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1650</td><td>8120 - RELAY SOCKET 3PDT 11 PIN</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1678</td><td>8120 - FUSIBILE 5A - 600V</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1720</td><td>8120 - ROCKER SWITCH 3TAB 15A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1721</td><td>8120 - ROCKER MICROSWITCH 2TAB 15A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1736</td><td>8120 - FUSIBILE 2,5A - GRANDE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1740</td><td>8120 - FUSIBILE 15A - 600V</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1861</td><td>8120 - CONTATTORE 30A 120V 4 POLI</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E1936</td><td>8120 - UNIV. SCHEDA ASSEMB RELE STEERING</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2023</td><td>8120 - ELC ROTARY POSITION SENSOR</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2044</td><td>8120 - ELECTRIC MOTOR 30RPM ANT0315155</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2149</td><td>8120 - LAMPADA STROBO TRASPARENTE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2176</td><td>8120 - PROXIMITY SWITCH TURK 8MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2179</td><td>8120 - RELAY SOLID STATE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2225</td><td>8120 - CAVO PROXIMITY SWITCH 1m</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2227</td><td>8120 - ELECTRIC MOTOR 34RPM 2HP VALLEY</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2230</td><td>8120 - 120 VAC 5A RELAY</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2231</td><td>8120 - PBC RELAY DIN RAIL ADAPTER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2244</td><td>8120 - POWER OSCILLATOR 833HZ</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2245</td><td>8120 - POWER OSCILLATOR 1000HZ NB833</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2270</td><td>8120 - ELECTRIC MOTOR 34RPM X CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2300</td><td>8120 - PLACA RELE' SELECT/PRO2 ELC RELAY BRD</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2301</td><td>8120 - SCHEDA PCB SMARTOWER 1.40 CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2331</td><td>8120 - PRESSOSTATO VALLEY 200PSI 4VR</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2745</td><td>8120 - CONTROLLO INVERTER YASKAWA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E2746</td><td>8120 - 03M2239 YASKAWA 7.5HP VAR SPEED</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3232</td><td>8120 - TIMER DELAY SOVRAIRRIGAZIONE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3444</td><td>8120 - CONTATT. REV 480VAC 40A 120V COIL</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3641</td><td>8120 - CONTROL PANEL DISCONNECT FUSE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3779</td><td>8120 - PRESSOSTATO 4-20mA 200PSI x ICON</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3785</td><td>8120 - CONTAT. 099P178 25A 3P 120V COIL</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3829</td><td>8120 - 1000 HZ ANTENNA 7 PIEDI</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3835</td><td>8120 - 833 HZ ANTENNA 7 PIEDI</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3907</td><td>8120 - ENCODER x PANNELLO ICON</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>03E3936</td><td>8120 - SMART RELAY BOARD BOX</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0991107</td><td>8120 - GUARNIZIONE PP TUBO CAMPATA 6"5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0991234</td><td>8120 - KIT CARDANO FE x CARRO 4 RUOTE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0992211</td><td>8120 - GUARNIZIONE PP TUBO SBR. 6"5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0992439</td><td>8120 - GUARNIZIONE PP TUBO RISER 8"</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0992540</td><td>8120 - TENUTA BP BERKELEY 7 1/2 - S32014</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0994500</td><td>8120 - GUARNIZIONE PP TUBO RISER 8"5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0995852</td><td>8120 - TUBO LINK x ALLINEAM. MODIFICATO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0996063</td><td>8120 - CORNER SPAN SENSOR</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0998101</td><td>8120 - TUBO GOMMA D.150 x BENDER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>0998423</td><td>8120 - CINGHIA BENDER 160M - 112 DENTI</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1700494</td><td>8120 - PLACCA SOST. BOX ELETTR UNIVERSAL</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1700622</td><td>8120 - STAFFA TOP x BRACCI DRIVE UNIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1700868</td><td>8120 - RUOTA DENTATA WHEEL WORM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1700976</td><td>8120 - CAVO TIR. SBR.6,682M (SPREADER)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1700982</td><td>8120 - ANGOLARE x STAFFA V SBR. CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701021</td><td>8120 - ANGOLARE x STAFFA V SBR. CORTO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701295</td><td>8120 - BARRA DI ALLINEAMENTO/CONTROLLO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701622</td><td>8120 - MOTORIDUTT. GEARBOX CORNER VALLEY</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701922</td><td>8120 - VITE SENZA FINE WORM GEAR</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701965</td><td>8120 - RIDUTTORE AVANTI STD FORWARD</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1701966</td><td>8120 - RIDUTTORE INDIETRO STD REVERSE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1703321</td><td>8120 - MOTORIDUTT. GEARBOX VALLEY</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1703455</td><td>8120 - BARRA ALLINEAM. MODIFICATO CORTA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1703457</td><td>8120 - BARRA ALLINEAM. MODIFICATO LUNGA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1703462</td><td>8120 - PIASTRA x BARRA ALLINEAM. MODIF.</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1703616</td><td>8120 - CAVO VERT. V CORNER 4.507M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1731382</td><td>8120 - BRACCIO DIAGONALE BARRIERA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1731731</td><td>8120 - GRUPPO GIREVOLE + CUSCINETTO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780203</td><td>8120 - CAVO TIR. SBR.17,91M (OUTER 25)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780205</td><td>8120 - CAVO TIR. SBR.26,03M (OUTER 25)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780228</td><td>8120 - CAVO TIR. SBR.6,15M (DOWN CABLE)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780400</td><td>8120 - TRAPEZOID PLATE x DRIVE UNIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780818</td><td>8120 - BRACCETTI DIAG. x DRIVE UNIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780819</td><td>8120 - ANGOL. GRADINO ALTO DU HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780826</td><td>8120 - TUBOLARE BARRIERA ALTO PROFILO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780827</td><td>8120 - TUBO ATTUATORE BARRIERA ALTO PROF</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1780828</td><td>8120 - STAFFA SUPPORTO CAVO TIR. SBR. HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1781001</td><td>8120 - ASSALE ALTO PROFILO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1781323</td><td>8120 - TUBO SBRACCIO 8.23M 4" 30SP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>1812442</td><td>8120 - BOX ELETTRICO TORRE INTERMEDIA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9310431</td><td>8120 - CORNER ANGLE SENSOR BOX LRDU-SDU</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9310432</td><td>8120 - CASSETTA ELETTRICA CAMPATA CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9311054</td><td>8120 - CABLE PIEZOMETRICO PRESS TRANS</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9311087</td><td>8120 - SCHEDA ILLUM. SCHERMO PANNEL PRO2</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>931K007</td><td>8120 - OSCILLATOR INSTALLATION KIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>931K655</td><td>8120 - KIT RESOLVER SENSORE POSIZIONE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>933K431</td><td>8120 - KIT PSI TRASDUTTORE 4-20mA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360018</td><td>8120 - TUBO INTER LUNGO CORNER 6"5/8 (8)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360020</td><td>8120 - TUBO INTER CORTO CORNER 6"5/8 (9)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360034</td><td>8120 - CAVO TIR. SBR.10,05M (INNER16&25)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360050</td><td>8120 - TRUSS DIAGONALE 2103MM PACCO 3</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360051</td><td>8120 - TRUSS ORTOGONALE 2354MM PACCO 3</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360052</td><td>8120 - TRUSS DIAGONALE 1576MM PACCO 4A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360053</td><td>8120 - TRUSS ORTOGONALE 1327MM PACCO 4</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360054</td><td>8120 - TRUSS DIAGONALE 2470MM PACCO 5</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360055</td><td>8120 - TRUSS ORTOGONALE 2922MM PACCO 5</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360056</td><td>8120 - TRUSS DIAGONALE 2605MM PACCO 6</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360057</td><td>8120 - TRUSS ORTOGONALE 3123MM PACCO 6</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360058</td><td>8120 - TRUSS DIAGONALE 2847MM PACCO 7</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360059</td><td>8120 - TRUSS ORTOGONALE 3476MM PACCO 7</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360064</td><td>8120 - TIRANTE CORNER ARANCIONE 6,401 M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360068</td><td>8120 - TRUSS ANGLE TRAPEZOID PLATE 475MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360074</td><td>8120 - TRUSS DIAGONALE 1495MM PACCO 4B</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360093</td><td>8120 - TUBO ULTIMO 1 CORNER 6"5/8 (10)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360190</td><td>8120 - GAMBA DX UHPTOWER DRIVE UNIT 5,7M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360191</td><td>8120 - GAMBA SX UHPTOWER DRIVE UNIT 5,7M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360229</td><td>8120 - ANGOLARE x STAFFA V SBR. LUNGO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360316</td><td>8120 - CAVO TIR. SBR.3,73M (OUTER 9)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360539</td><td>8120 - GAMBA CORNER PROFILO STD</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360567</td><td>8120 - TUBO PRIMO CORNER 6"5/8 (7)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360569</td><td>8120 - ASTA STERZO RUOTE CORNER</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360642</td><td>8120 - TUBO SBRACCIO 8.23M 6"5/8 30SP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360646</td><td>8120 - TUBO SBRACCIO 8.23M 6"5/8 30SP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360674</td><td>8120 - TUBO CAMP. INIZIO MACCHINA 1,455M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360675</td><td>8120 - TUBO CAMP. INIZIO CAMPATA 1,573M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360676</td><td>8120 - TUBO CAMP. FINE MACCHINA 1,455M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360677</td><td>8120 - TUBO CAMP. FINE CAMPATA 1,537M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360682</td><td>8120 - TRUSS ROD CAMP. BLACK SP19-5697MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360683</td><td>8120 - TRUSS ROD CAMP. BLUE SP19-6778MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360684</td><td>8120 - TUBO INTERM. CORTO 575.1M 113SP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360686</td><td>8120 - TUBO INTERMEDIO LUNGO 11,506M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360704</td><td>8120 - TRUSS DIAGONALE 2756MM PACCO 10</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360705</td><td>8120 - TRUSS ORTOGONALE 3343MM PACCO 10</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360706</td><td>8120 - TRUSS DIAGONALE 2355MM PACCO 9</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360707</td><td>8120 - TRUSS ORTOGONALE 2747MM PACCO 9</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360718</td><td>8120 - TRUSS ROD GREEN/BROWN SP20-6778MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360719</td><td>8120 - TRUSS ROD RED/GREEN SP20-5697MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360722</td><td>8120 - BRACCI COMPR. x TOWER DU 4,8M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360724</td><td>8120 - STAFFA BOTTOM x BRACCI DRIVE UNIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360733</td><td>8120 - BRACCETTI DIAG. x DRIVE UNIT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360734</td><td>8120 - TRUSS DIAGONALE 1541MM PACCO 8B</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360735</td><td>8120 - TRUSS DIAGONALE 1609MM PACCO 8A</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360736</td><td>8120 - TRUSS ORTOGONALE 1422MM PACCO 8</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360737</td><td>8120 - CAVO TIR. CORNER 47.747M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360748</td><td>8120 - BRACCI COMPR. x TOWER DU 6.0M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360823</td><td>8120 - GAMBA DX DRIVE UNIT HIGH PROFILE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360824</td><td>8120 - GAMBA SX DRIVE UNIT HIGH PROFILE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360841</td><td>8120 - ANGOL. GRADINO ALTO INTERM DU HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360842</td><td>8120 - ANGOL. GRADINO BASSO INTERM DU HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360843</td><td>8120 - ANGOL. GRADINO BASSO INTERM DU HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360861</td><td>8120 - CORNER CONTROL ARM</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9360893</td><td>8120 - TUBO ULTIMO 2 CORNER 6"5/8 (11)</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9361365</td><td>8120 - TUBO RISER 8"5/8 SOTTO PIRAMIDE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9361464</td><td>8120 - TUBO CAMP. TORRE ULTIMA 1,458M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9363792</td><td>8120 - TRAPEZIO x STAFFA V SBRACCIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>9364028</td><td>8120 - PIASTRA ADATT. x BENDER 160</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA00416</td><td>8120 - KIT DISSIPAZIONE TENSIONE INDOTTA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA01300</td><td>8120 - KIT CARDANO RINFORZATO UHD</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA01519</td><td>8120 - KIT TIMER DELAY SOVRAIRRIGAZIONE</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA01590</td><td>8120 - SELECT2 + MODULO IN BOX SELECT2 </td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA01777</td><td>8120 - KIT FUSIBILI 5A BOX ELET. INTERM.</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA01798</td><td>8120 - KIT HARDW ELETTRICO RUNNING LIGHT</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA02670</td><td>8120 - KIT AGGIORNAMENTO OPMC5 x ICON</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA02760</td><td>8120 - KIT RICAMBI COLLETTORE RTK E GPS</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09026</td><td>8120 - KIT TRUSS ANGOLARI CORNER 205'</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09283</td><td>8120 - KIT TRUSS ANGOLARI CAMPATA 43.37M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09285</td><td>8120 - KIT TRUSS ANGOLARI CAMPATA 49.13M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09288</td><td>8120 - KIT TRUSS ANGOLARI CAMPATA 54.86M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09290</td><td>8120 - KIT TRUSS ANGOLARI CAMPATA 60.63M</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>KA09377</td><td>8120 - KIT BARRIERA</td><td><input type='number' min='0'></td><td>N</td></tr>
+        <tr><td><input type='checkbox'></td><td>PROXIMITY-SWITCH</td><td>PROXIMITY SWITCH M12 5mm N.O. AC + CAVO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    </tbody>
+    </table>
+
+    <button onclick="generaPDF()">📄 Genera PDF</button>
+    <button onclick="generaExcel()">📊 Genera Excel</button>
+
+    <div class="error" id="errore"></div>
+</div>
+
+<script>
+// --- Firma su canvas ---
+const canvas = document.getElementById('firma');
+const ctx = canvas.getContext('2d');
+let disegnando = false;
+
+// Dimensioni corrette del canvas
+canvas.width = canvas.offsetWidth;
+canvas.height = 150;
+
+ctx.lineWidth = 2;
+ctx.lineCap = "round";
+
+// --- Funzioni per mouse ---
+canvas.addEventListener('mousedown', e => {
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+});
+canvas.addEventListener('mousemove', e => {
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('mouseup', () => disegnando = false);
+canvas.addEventListener('mouseout', () => disegnando = false);
+
+// --- Funzioni per touch ---
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault(); // evita scroll
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.beginPath();
+    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('touchend', () => disegnando = false);
+canvas.addEventListener('touchcancel', () => disegnando = false);
+
+// --- Pulisci firma ---
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// --- Ottieni firma in base64 ---
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Funzione per ottenere immagine firma in base64
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function raccogliDati() {
+    const cliente = document.getElementById("cliente").value.trim();
+    const firma = getFirmaDataURL();  // <--- aggiungi questa riga
+    const righe = document.querySelectorAll("#tabella tr");
+    let dati = [];
+
+    for (let r of righe) {
+        const check = r.querySelector('input[type="checkbox"]');
+        const q = r.querySelector('input[type="number"]').value;
+        const mat = r.children[1].innerText;
+        const un = r.children[3].innerText;
+
+        if (check.checked) {
+            if (!q || Number(q) <= 0) {
+                return { errore: "Quantità mancante per materiale selezionato." };
+            }
+            dati.push([r.children[1].innerText, r.children[2].innerText, Number(q), r.children[4].innerText]);
+        }
+    }
+
+    if (!cliente) return { errore: "Inserire il nome del cliente." };
+    if (dati.length === 0) return { errore: "Selezionare almeno un materiale." };
+
+    return { cliente, dati, firma }; // <--- aggiungi firma qui
+}
+
+function resetModulo() {
+    document.getElementById("cliente").value = "";
+    document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+    document.querySelectorAll("input[type=number]").forEach(n => n.value = "");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // pulisci canvas firma
+}
+
+function generaPDF() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) {
+        err.innerText = res.errore;
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Caricamento logo
+    const logo = new Image();
+    logo.src = "logo.png";
+
+    logo.onload = function () {
+
+        // Logo
+        doc.addImage(logo, "PNG", 10, 8, 30, 15);
+
+        // Dati azienda
+        doc.setFontSize(10);
+        doc.text("AGRO+ SRL", 45, 12);
+        doc.text("Via Sacco e Vanzetti 21", 45, 17);
+        doc.text("42021 Bibbiano (RE)", 45, 22);
+        doc.text("info@agropiu.com", 45, 27);
+        doc.text("0522 875924", 45, 32);
+
+        // Cliente
+        doc.setFontSize(12);
+        doc.text("Cliente: " + res.cliente, 10, 45);
+
+        // Data
+        const oggi = new Date();
+        const giorno = String(oggi.getDate()).padStart(2,'0');
+        const mese = String(oggi.getMonth()+1).padStart(2,'0');
+        const anno = oggi.getFullYear();
+        doc.setFontSize(10);
+        doc.text("Data: " + giorno + "/" + mese + "/" + anno, 150, 45); // a destra della pagina
+
+        // --- Corpo tabella PDF ---
+        doc.setFontSize(9);
+        const startY = 60;
+        let y = startY;
+
+        // Intestazione tabella
+        doc.text("Codice", 10, y);
+        doc.text("Descrizione", 50, y);
+        doc.text("Quantità", 160, y);
+        doc.text("Unità", 190, y);
+        y += 6;
+        doc.line(10, y, 200, y); // linea sotto intestazione
+        y += 4;
+
+        // Dati tabella
+        res.dati.forEach(d => {
+            if (y > 280) { doc.addPage(); y = 20; } // nuova pagina se necessario
+                doc.text(d[0], 10, y);
+                doc.text(d[1], 50, y);
+                doc.text(d[2].toString(), 160, y);
+                doc.text(d[3], 190, y);
+            y += 8;
+        });
+
+        // Firma cliente (se presente)
+        if (res.firma) {
+            if (y > 230) { doc.addPage(); y = 20; }
+            doc.text("Firma cliente:", 10, y + 10);
+            doc.addImage(res.firma, "PNG", 50, y, 100, 50);
+        }
+
+        // Salvataggio e reset
+        doc.save(`Lista_materiali_${res.cliente}.pdf`);
+        resetModulo();
+    };
+}
+
+function generaExcel() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) { err.innerText = res.errore; return; }
+
+    const wsData = [
+        ["Azienda", "AZIENDA AGRICOLA"],
+        ["Cliente", res.cliente],
+        [],
+        ["Materiale", "Quantità", "Unità"],
+        ...res.dati
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, "Materiali");
+
+    XLSX.writeFile(wb, `Lista_materiali_${res.cliente}.xlsx`);
+    resetModulo();
+}
+
+function filtraTabella() {
+    const filtro = document.getElementById("ricercaMateriale").value.toLowerCase();
+    const righe = document.querySelectorAll("#tabella tr");
+
+    righe.forEach(riga => {
+        const descrizione = riga.children[2].innerText.toLowerCase();
+
+        if (descrizione.includes(filtro)) {
+            riga.style.display = "";
+        } else {
+            riga.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-512.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<title>Ricambi CP600</title>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+<div class="main">
+    <img src="logo.png" alt="Logo azienda" style="height:45px;">
+    <div>
+    <strong>AGRO+ SRL</strong><br>
+    Via Sacco e Vanzetti 21<br>
+    42021 Bibbiano (RE)<br>
+    info@agropiu.com<br>
+    0522 875924
+    </div>
+</div>
+
+<div class="main">
+    <div class="button-container">
+        <button onclick="window.location.href='prelievo.html'">⬅ Torna alla Home</button>
+    </div>
+
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+        <label for="cliente" style="white-space:nowrap;"><strong>Cliente:</strong></label>
+        <input type="text" id="cliente" placeholder="Nome cliente">
+    </div>
+
+    <div style="margin-bottom:8px;">
+        <strong>Firma cliente:</strong>
+        <canvas id="firma" style="border:1px solid #ccc; width:100%; height:150px;"></canvas>
+        <button type="button" onclick="pulisciFirma()" style="margin-top:4px;">Pulisci firma</button>
+    </div>
+
+    <div style="margin:10px 0;">
+        <input
+            type="text"
+            id="ricercaMateriale"
+            placeholder="🔎 Cerca materiale..."
+            onkeyup="filtraTabella()"
+            style="width:100%; padding:8px; font-size:14px;"
+        >
+    </div>
+
+    <table class="table-auto">
+        <thead>
+            <tr>
+                <th>Usa</th>
+                <th>Codice</th>
+                <th>Descrizione</th>
+                <th>Quantità</th>
+                <th>Unità</th>
+            </tr>
+        </thead>
+
+    <tbody id="tabella">
+
+    <tr><td><input type='checkbox'></td><td>12-02289-03</td><td>FILTRO PER VALVOLA 1/4"</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-02289-21</td><td>VALVOLA 2" 120V x KIT ICONTROL REMOTE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-02298-07</td><td>SCUDO ALBERO TRASMISS TORRE HP - 2286MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-02329-07</td><td>TUBO GOMMA 6"5/8 INTERMEZZO CAMPATA 50CM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-02415-01</td><td>VALVOLA SOLENOIDE ASCO 120V 3 VIE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-03055-67</td><td>CAVO 4x6 + 7x2,5 CAMPATA 44,20 (L.45,70)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-03055-68</td><td>CAVO 4x6 + 7x2,5 CAMPATA 50,10 (L.51.80)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-03055-69</td><td>CAVO 4x6 + 7x2,5 CAMPATA 56,10 (L.57.90)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-03055-70</td><td>CAVO 4x6 + 7x2,5 CAMPATA 62.00 (L.64.00)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-0910119</td><td>RELE' SET/RESET 120vAC MY2K-US-AC120</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-0910120</td><td>ZOCCOLO RELE PYF-14A-E (x MY2K-US-AC120)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10002-11</td><td>TUBO CAMPATA INIZIO MACCHINA M. 1,219</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10004-11</td><td>TUBO CAMPATA INIZIO CAMPATA M. 1,066</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10039-11</td><td>TUBO RISER SOTTO CURVA PIRAMIDE STANDARD</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10041-11</td><td>TUBO CAMPATA FINE MACCHINA M. 7,489</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10046-41</td><td>TUBO CONDOTTA "J" SOTTO CURVA PIRAMIDE </td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10047-11</td><td>SUPPORTO PANNELLO IC STANDARD 721MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10048-11</td><td>SUPPORTO PANNELLO IC STANDARD 276MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10049-11</td><td>SUPPORTO PANNELLO IC STANDARD 89MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10050-11</td><td>TRUSS DIAGONALE TIPO 1 LUNGA - 1416MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10051-11</td><td>TRUSS DIAGONALE TIPO 1 CORTA - 1354MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10052-11</td><td>TRUSS ORTOGONALE TIPO 1 - 1705MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10053-11</td><td>TRUSS DIAGONALE TIPO 2 - 1961MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10054-11</td><td>TRUSS ORTOGONALE TIPO 2 - 2672MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10055-11</td><td>TRUSS DIAGONALE TIPO 3A - 2211MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10056-11</td><td>TRUSS ORTOGONALE TIPO 3A - 3099MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10057-11</td><td>TRUSS DIAGONALE TIPO 3B - 2385MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10058-11</td><td>TRUSS ORTOGONALE TIPO 3B - 3308MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10059-11</td><td>TRUSS DIAGONALE TIPO 4A - 2580MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10060-11</td><td>TRUSS ORTOGONALE TIPO 4A/4B - 3637MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10061-11</td><td>TRUSS DIAGONALE TIPO 4B - 2627MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10062-11</td><td>TRUSS DIAGONALE TIPO 5 - 2711MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10063-11</td><td>TRUSS ORTOGONALE TIPO 5 - 3740MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10071-11</td><td>PIEDE PIRAMIDE PIVOT POINT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10079-11</td><td>CURVA SOTTO PIRAMIDE 8" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10082-11</td><td>TUBO CAMPATA FINE CAMPATA M. 7,454</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10084-11</td><td>BRACCIO COMPRESSIONE x OVERHANG L5.4M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10085-11</td><td>ATTACCO SUPERIORE TIRANTI TRUSS ROD</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10086-11</td><td>ATTACCO INFERIORE TIRANTI TRUSS ROD</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10095-11</td><td>VERTICALE STAFFA V SBRACCIO LUNGO 3404mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10096-11</td><td>VERTICALE STAFFA V SBRACCIO CORTO 1727mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10097-11</td><td>TRAPEZIO x TRUSS BUNDLE+TRUSS ROD 683mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10109-11</td><td>TIRANTE CAMPATA ARANCIONE M. 5,829</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10121-01</td><td>CAVO TIRANTE SBRACCIO L 12.217M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10141-01</td><td>CAVO TIRANTE SBRACCIO L 5.943M VERTICALE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10146-11</td><td>TIRANTE CAMPATA VERDE/GREEN M. 6,778</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10147-11</td><td>TIRANTE CAMPATA BIANCO/WHITE M. 5,892</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10150-11</td><td>ORIZZONTALE TOP STAFFA V SBRACCIO 3673mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10154-01</td><td>CAVO TIRANTE SBRACCIO L 18.006M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10160-11</td><td>TUBO SBRACCIO 4" L 11.9M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10169-01</td><td>CAVO TIRANTE SBRACCIO L 16.383M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10179-01</td><td>CAVO TIRANTE SBRACCIO L 35.026M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10189-11</td><td>TUBO CAMPATA INTERMEDIO LUNGO M. 11,887</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10190-11</td><td>TUBO CAMPATA INTERMEDIO CORTO M. 5,943</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10223-11</td><td>TUBO SBRACCIO 6" 5/8 L 3.7M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10225-11</td><td>TUBO SBRACCIO 4" L 1.8M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10228-11</td><td>ORIZZONTALE TOP STAFFA V SBRACCIO 1997mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10229-11</td><td>VERTICALE STAFFA V SBRACCIO 1727mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10402-51</td><td>TUBO CAMP.PERMAP INIZIO MACCHINA 1,219M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10470-11</td><td>GAMBA TOWER DRIVE UNIT 5,791M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10471-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 1 - 364MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10472-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 2 - 478MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10473-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 3 - 592MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10474-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 4 - 706MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10475-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 5 - 821MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10476-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 6 - 935MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10477-11</td><td>PIOLO ORTOG. TOWER DRIVE UNIT 7 - 1049MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10479-11</td><td>RINFORZO TOWER BACE G 220 7/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10480-11</td><td>CROCE x BRACCI TOWER DRIVE UNIT 1219MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10485-11</td><td>GAMBA PIRAMIDE PIVOT POINT 5,493M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10490-11</td><td>PIOLO ORTOG. PIRAM PIVOT POINT 11-4081MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10491-11</td><td>PROLUNGA SOTTO PIRAMIDE HP 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10690-01</td><td>TUBO OH BOOSTER PUMP PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10755-11</td><td>ASSALE LUNGO CP600 ALTO PROFILO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10850-51</td><td>TUBO RISER PIRAMIDE INOX PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10852-11</td><td>CURVA SOTTO PIRAMIDE 8" 5/8 PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10917-21</td><td>LINEA DI TRASMISSIONE TORRE - 1,562M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-10960-21</td><td>LINEA DI TRASMISSIONE TORRE - 2,375M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13264-11</td><td>VERTICALE STAFFA V SBRACCIO 3404mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13267-11</td><td>CAVO TIRANTE SBRACCIO L 4.267M STAFFA V </td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13268-11</td><td>CAVO TIRANTE SBRACCIO L 5.182M VERTICALE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13269-11</td><td>CAVO TIRANTE SBRACCIO L 11.582M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13270-11</td><td>CAVO TIRANTE SBRACCIO L 17.373M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13271-11</td><td>CAVO TIRANTE SBRACCIO L 23.164M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13272-11</td><td>CAVO TIRANTE SBRACCIO L 34.137M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13274-11</td><td>ORIZZONTALE BOT STAFFA V SBRACCIO 3673mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13403-51</td><td>TUBO CAMP.PERMAP FINE MACCHINA 7,489M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13404-51</td><td>TUBO CAMP.PERMAP FINE CAMPATA 7,489M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13405-51</td><td>TUBO CAMP.PERMAP INTERM.LUNGO 11,887M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13406-51</td><td>TUBO CAMP.PERMAP INTERM.CORTO 5,943M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13419-51</td><td>TUBO CAMP.PERMAP INIZIO CAMPATA 1,219M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13423-51</td><td>TUBO SBRACCIO 6" 5/8 L 3.7M PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-13478-11</td><td>BRACCETTO COMPRESSIONE x TOWER 2,2M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400003</td><td>CONCHIGLIE x BRACCIO COMPR. OVERHANG</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400139</td><td>KIT PIRAMIDE STANDARD</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400348</td><td>CURVA SOPRA PIRAMIDE 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400608</td><td>KIT FASTENERS EXTRA x PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400688</td><td>CURVA SOPRA PIRAMIDE 7" PERMAPIPE 6"5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400690</td><td>KIT FASTENERS EXTRA + 7/8" FLEX JOINT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400746</td><td>KIT IMPIANTO TRASMISSIONE TORRE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400798</td><td>KIT IRRIGAZIONE 0-150 PSI + MANOMETRO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400850-11</td><td>ORIZZONTALE BOT STAFFA V SBRACCIO 1547mm</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400861</td><td>KIT IRRIGATORE FINALE R55I</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-400887</td><td>CAVO x BARRIERA 6.30M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401113</td><td>TIMER DI SOVRA IRRIGAZIONE - STALL TIMER</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401115</td><td>CONTATTORE 3P 25A 110/120V</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401254</td><td>IRRIGATORE FINALE VERDE R55I VT NELSON</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401255</td><td>UGELLO IRRIGATORE FINALE NELSON VIOLA#52</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401256</td><td>UGELLO IRRIGATORE FINALE NELSON ROSSO#60</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401257</td><td>UGELLO IRRIGATORE FINALE NELSON GIALL#70</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401258</td><td>UGELLO IRRIGATORE FINALE NELSON VERDE#80</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401264</td><td>UGELLO IRRIGATORE FINALE NELSON BIAN #56</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401374</td><td>PRESSOSTATO BOOSTER PUMP HIGH SWITCH</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401386</td><td>GIUNTO COMPENS. DN300 EDPM TORAFLEX</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-401420</td><td>KIT TUBO BOOMBACK + BRACCI 6"5/8 4,572M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-800015</td><td>iCONTROL PANNELLSTANDARD PIRAMIDE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80002</td><td>KIT CAMPATA 44.20M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80003</td><td>KIT CAMPATA 50.10M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80004</td><td>KIT CAMPATA 56.10M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80005</td><td>KIT CAMPATA 62.00M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80011</td><td>KIT CAMPATA 50.10M PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80012</td><td>KIT CAMPATA 56.10M PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80013</td><td>KIT CAMPATA 62.00M PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80018</td><td>KIT TRUSS ROD TIRANTI CAMPATA 44.20m</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80019</td><td>KIT TRUSS ROD TIRANTI CAMPATA 50.10M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80020</td><td>KIT TRUSS ROD TIRANTI CAMPATA 56.10M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80021</td><td>KIT TRUSS ROD TIRANTI CAMPATA 62.00M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80042</td><td>KIT TORRE DRIVE UNIT INTERMEDIA</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80043</td><td>KIT TORRE DRIVE UNIT FINALE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80046</td><td>KIT TORRE DRIVE UNIT INTERMEDIA PERMAPIP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80047</td><td>KIT TORRE DRIVE UNIT FINALE PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80049</td><td>STAFFA V MINI SENZA TIRANTI SBRACCIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80050</td><td>STAFFA V PICCOLA X TIRANTI SBRACCIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80051</td><td>STAFFA V GRANDE X TIRANTI SBRACCIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80057</td><td>KIT SBRACCIO 09.6M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80058</td><td>KIT SBRACCIO 11.9M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80059</td><td>KIT SBRACCIO 13.7M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80060</td><td>KIT SBRACCIO 15.5M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80061</td><td>KIT SBRACCIO 17.8M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80062</td><td>KIT SBRACCIO 19.7M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80082</td><td>KIT SBRACCIO 11.9M X 6" 5/8 PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80091</td><td>KIT TORRE DRIVE UNIT PACCO ANG. RINFORZ.</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80093</td><td>KIT SCARICO SBRACCIO CON BOOSTER PUMP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80099</td><td>KIT SBRACCIO 15.5M X 6" 5/8 PERMAPIPE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80154</td><td>STAFFA V GIGANTE X TIRANTI SBRACCIO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80155</td><td>KIT SBRACCIO 23.8M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-80156</td><td>KIT SBRACCIO 25.6M X 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8187659-11</td><td>BOX ELETTRICO BARRIERA AUTOREVERSE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8187997</td><td>KIT 2° TIMER BARRIERA + AUTOREV E ICR</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8286980</td><td>CAVO x COLLETTORE PIRAM. 11 FILI - 7,6M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8296315</td><td>COPERCHIO CASSETTA ELETTRICA WHITE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8296679</td><td>MOTORIDUTTORE 0,55 KW 0,75HP 50:1</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-8297385</td><td>SCUDO KIT CARDANO CILINDRO LUNGO</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-850052</td><td>CONTATORE 120V AC LC1D12G7</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-860131</td><td>INTERBL. ELETTROMECC. SIEMENS FWD/REV</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-900017-PRES</td><td>KIT SENSORE PRESSIONE ACQUA</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90015-01</td><td>BOX ELETTRICO TORRE INTERM + BARRA ALLIN</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90015-02</td><td>BOX ELETTRICO TORRE PRIMA + BARRA ALLIN</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90017-3G-S</td><td>iCONTROL REMOTE TOWER DRIVE UNIT 3G-V2</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90017-4GGS</td><td>iCONTROL REMOTE TOWER DRIVE UNIT 4G-V2</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90030-01</td><td>KIT ANCORE TIRAFONDI PIRAMIDE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90033-02</td><td>KIT LUCE STROBO PER STAFFA V</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90036-10</td><td>KIT PRESSOSTATO ARRESTO BASSA PRESSIONE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90038-02</td><td>KIT BOOSTER PUMP 5HP JB ASM + CTN</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9004371</td><td>TUBO GOMMA 7" INTERM.CAMPATA 50CM PERMAP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9004372</td><td>FASCETTE FERRO ZN X TUBO GOMMA 7" PERMAP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9005499</td><td>GUARNIZIONE PLASTICA OTTAGONO 8" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90055-80</td><td>KIT VALVOLA 2" ICONTROLREMOTE + EVOTOUCH</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9007284</td><td>SCUDO ALBERO TRASMISS TORRE STD - 1408MM</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-90085-01</td><td>KIT PICCHETTO MESSA A TERRA PIRAMIDE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9008856</td><td>GUARNIZIONE PLASTICA 6 FORI ESAG. 6" 5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9008912</td><td>FASCETTE FERRO ZN X TUBO GOMMA 6"5/8</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-91001-11</td><td>KIT TRUSS PACCO ANGOLARI CAMPATA 44.12M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-91002-11</td><td>KIT TRUSS PACCO ANGOLARI CAMPATA 50.15M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-91003-11</td><td>KIT TRUSS PACCO ANGOLARI CAMPATA 56.10M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-91004-11</td><td>KIT TRUSS PACCO ANGOLARI CAMPATA 62.00M</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-91010-11</td><td>KIT PIRAMIDE ALTO PROFILO +ANGOLARI RINF</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9330501</td><td>CANNONE FINALE KOMET SR101 N°18</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9330527</td><td>UGELLO CANNONE FINALE KOMET SR101 #27</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331107</td><td>IRRIGATORE KOMET TWISTER NERO STANDARD</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115</td><td>PISTOLA TWIN MAX KOMET PC18</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-10</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #20</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-11</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #22</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-12</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #24</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-6</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #15</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-7</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #16</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-8</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #17</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9331115-9</td><td>UGELLO CANNONE FINALE KOMET TWIN MAX #18</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9398467</td><td>CURVA SENNINGER PLASTICA 180° M-F</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-95.30017</td><td>NIPPLO DOPPIO PLASTICA FIG.280 M-M 3/4"</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-95.30086</td><td>PORTAGOMMA PLASTICA MASCHIO x KOMET</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-95.30499</td><td>PORTAGOMMA PLASTICA FEMMINA x KOMET</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-95.50011</td><td>BOOSTER PUMP 5HP UMC 200GPM 460/380V</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9684834</td><td>COLLETTORE ELET. x CAVO PIRAMIDE 11 FILI</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-96V8456</td><td>ELECTRIC MOTOR 44/35RPM 0.75HP 40:1</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9727966</td><td>TUBO FLESSIBILE GOMMA ARANCIONE 3/4"</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9728915</td><td>FASCETTE FE x TUBO FLEX GOMMA 1" 1/4</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9728986</td><td>FASCETTE FERRO ZN 1"1/2 (25-50mm)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9767999</td><td>VALVOLA DI DRENAGGIO (SFIATO)</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9769100</td><td>REGOLATORE PRESSIONE KOMET 06 PSI</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9769101</td><td>REGOLATORE PRESSIONE KOMET 10PSI</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-9769103</td><td>REGOLATORE PRESSIONE KOMET 20PSI</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-98.200390-11</td><td>BARRIERA FINE CAMPO ASSEMBLATA</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-EOFBLHP</td><td>KIT TRUSS PACCO ANGOLARI BARRIERA HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-EOF-PKG-CP600HP</td><td>KIT PACCO HARDWARE AUTOREV. BARRIERA HP</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-PZ90007</td><td>KIT DRENAGGIO REMOTO + GOMMA ALTA PRES</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>12-PZ98924</td><td>KIT CARDANO ARANCIONE</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>BOOSTERPUMP-BK-5HP</td><td>BOOSTER PUMP 5HP BERKLEY 200GPM 460/380V</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>BOOSTERPUMP-X-5HP</td><td>BOOSTER PUMP 5HP XCAM 200GPM 460/380V</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>KOMET-UGELLO#</td><td>UGELLO IRRIGATORE KOMET #</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>PNEUM.ANTE-14.9X24</td><td>PNEUMATICO ANTER 14.9x24"  TR118 BKT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>PNEUM.ANTE-16.9X24</td><td>PNEUMATICO ANTER 16.9x24"  TR135 BKT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>PNEUM.POST-14.9X24</td><td>PNEUMATICO POSTER. 14.9x24"  TR118 BKT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>PNEUM.POST-16.9X24</td><td>PNEUMATICO POSTER 16.9x24"  TR135 BKT</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>RUOTA.SHARK-16.9X24</td><td>RUOTA SHARK WHEEL 16.9x24"</td><td><input type='number' min='0'></td><td>N</td></tr>
+    <tr><td><input type='checkbox'></td><td>SOLENOIDECHIUSO</td><td>SOLENOIDE PARKER NORMALMENTE CHIUSO</td><td><input type='number' min='0'></td><td>N</td></tr>
+
+    </tbody>
+    </table>
+
+    <button onclick="generaPDF()">📄 Genera PDF</button>
+    <button onclick="generaExcel()">📊 Genera Excel</button>
+
+    <div class="error" id="errore"></div>
+</div>
+
+<script>
+// --- Firma su canvas ---
+const canvas = document.getElementById('firma');
+const ctx = canvas.getContext('2d');
+let disegnando = false;
+
+// Dimensioni corrette del canvas
+canvas.width = canvas.offsetWidth;
+canvas.height = 150;
+
+ctx.lineWidth = 2;
+ctx.lineCap = "round";
+
+// --- Funzioni per mouse ---
+canvas.addEventListener('mousedown', e => {
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    ctx.beginPath();
+    ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+});
+canvas.addEventListener('mousemove', e => {
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('mouseup', () => disegnando = false);
+canvas.addEventListener('mouseout', () => disegnando = false);
+
+// --- Funzioni per touch ---
+canvas.addEventListener('touchstart', e => {
+    e.preventDefault(); // evita scroll
+    disegnando = true;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.beginPath();
+    ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+});
+canvas.addEventListener('touchmove', e => {
+    e.preventDefault();
+    if (!disegnando) return;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0];
+    ctx.lineTo(touch.clientX - rect.left, touch.clientY - rect.top);
+    ctx.stroke();
+});
+canvas.addEventListener('touchend', () => disegnando = false);
+canvas.addEventListener('touchcancel', () => disegnando = false);
+
+// --- Pulisci firma ---
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// --- Ottieni firma in base64 ---
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function pulisciFirma() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+// Funzione per ottenere immagine firma in base64
+function getFirmaDataURL() {
+    return canvas.toDataURL("image/png");
+}
+
+function raccogliDati() {
+    const cliente = document.getElementById("cliente").value.trim();
+    const firma = getFirmaDataURL();  // <--- aggiungi questa riga
+    const righe = document.querySelectorAll("#tabella tr");
+    let dati = [];
+
+    for (let r of righe) {
+        const check = r.querySelector('input[type="checkbox"]');
+        const q = r.querySelector('input[type="number"]').value;
+        const mat = r.children[1].innerText;
+        const un = r.children[3].innerText;
+
+        if (check.checked) {
+            if (!q || Number(q) <= 0) {
+                return { errore: "Quantità mancante per materiale selezionato." };
+            }
+            dati.push([r.children[1].innerText, r.children[2].innerText, Number(q), r.children[4].innerText]);
+        }
+    }
+
+    if (!cliente) return { errore: "Inserire il nome del cliente." };
+    if (dati.length === 0) return { errore: "Selezionare almeno un materiale." };
+
+    return { cliente, dati, firma }; // <--- aggiungi firma qui
+}
+
+function resetModulo() {
+    document.getElementById("cliente").value = "";
+    document.querySelectorAll("input[type=checkbox]").forEach(c => c.checked = false);
+    document.querySelectorAll("input[type=number]").forEach(n => n.value = "");
+    ctx.clearRect(0, 0, canvas.width, canvas.height); // pulisci canvas firma
+}
+
+function generaPDF() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) {
+        err.innerText = res.errore;
+        return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Caricamento logo
+    const logo = new Image();
+    logo.src = "logo.png";
+
+    logo.onload = function () {
+
+        // Logo
+        doc.addImage(logo, "PNG", 10, 8, 30, 15);
+
+        // Dati azienda
+        doc.setFontSize(10);
+        doc.text("AGRO+ SRL", 45, 12);
+        doc.text("Via Sacco e Vanzetti 21", 45, 17);
+        doc.text("42021 Bibbiano (RE)", 45, 22);
+        doc.text("info@agropiu.com", 45, 27);
+        doc.text("0522 875924", 45, 32);
+
+        // Cliente
+        doc.setFontSize(12);
+        doc.text("Cliente: " + res.cliente, 10, 45);
+
+        // Data
+        const oggi = new Date();
+        const giorno = String(oggi.getDate()).padStart(2,'0');
+        const mese = String(oggi.getMonth()+1).padStart(2,'0');
+        const anno = oggi.getFullYear();
+        doc.setFontSize(10);
+        doc.text("Data: " + giorno + "/" + mese + "/" + anno, 150, 45); // a destra della pagina
+
+        // --- Corpo tabella PDF ---
+        doc.setFontSize(9);
+        const startY = 60;
+        let y = startY;
+
+        // Intestazione tabella
+        doc.text("Codice", 10, y);
+        doc.text("Descrizione", 50, y);
+        doc.text("Quantità", 160, y);
+        doc.text("Unità", 190, y);
+        y += 6;
+        doc.line(10, y, 200, y); // linea sotto intestazione
+        y += 4;
+
+        // Dati tabella
+        res.dati.forEach(d => {
+            if (y > 280) { doc.addPage(); y = 20; } // nuova pagina se necessario
+                doc.text(d[0], 10, y);
+                doc.text(d[1], 50, y);
+                doc.text(d[2].toString(), 160, y);
+                doc.text(d[3], 190, y);
+            y += 8;
+        });
+
+        // Firma cliente (se presente)
+        if (res.firma) {
+            if (y > 230) { doc.addPage(); y = 20; }
+            doc.text("Firma cliente:", 10, y + 10);
+            doc.addImage(res.firma, "PNG", 50, y, 100, 50);
+        }
+
+        // Salvataggio e reset
+        doc.save(`Lista_materiali_${res.cliente}.pdf`);
+        resetModulo();
+    };
+}
+
+function generaExcel() {
+    const res = raccogliDati();
+    const err = document.getElementById("errore");
+    err.innerText = "";
+
+    if (res.errore) { err.innerText = res.errore; return; }
+
+    const wsData = [
+        ["Azienda", "AZIENDA AGRICOLA"],
+        ["Cliente", res.cliente],
+        [],
+        ["Materiale", "Quantità", "Unità"],
+        ...res.dati
+    ];
+
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb, ws, "Materiali");
+
+    XLSX.writeFile(wb, `Lista_materiali_${res.cliente}.xlsx`);
+    resetModulo();
+}
+
+function filtraTabella() {
+    const filtro = document.getElementById("ricercaMateriale").value.toLowerCase();
+    const righe = document.querySelectorAll("#tabella tr");
+
+    righe.forEach(riga => {
+        const descrizione = riga.children[2].innerText.toLowerCase();
+
+        if (descrizione.includes(filtro)) {
+            riga.style.display = "";
+        } else {
+            riga.style.display = "none";
+        }
+    });
+}
+</script>
+
+</body>
+</html>
