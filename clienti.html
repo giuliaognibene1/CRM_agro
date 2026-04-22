@@ -13,7 +13,6 @@
     <div class="logo-box">
       <img src="logo.png" alt="Logo azienda">
     </div>
-
     <ul>
       <li onclick="location.href='index.html'">📊 Dashboard</li>
       <li class="active">👥 Clienti</li>
@@ -25,9 +24,9 @@
   </div>
 
   <div class="main">
+    
     <h1>Clienti</h1>
     <input type="text" id="cerca" placeholder="Cerca cliente..." onkeyup="filtraClienti()">
-
     <h2 id="openModal" style="cursor:pointer;">➕Aggiungi Cliente</h2>
     <div id="modal" class="modal">
       <div class="modal-content">
@@ -43,22 +42,23 @@
       </div>
     </div>
     <h2>Elenco clienti</h2>
-
-    <table class="table-auto">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Telefono</th>
-          <th>Indirizzo</th>
-          <th>Note</th>
-          <th>Ticket attivi</th>
-          <th>Azioni</th>
-        </tr>
-      </thead>
-      <tbody id="tabellaClienti"></tbody>
-    </table>
-
+    <div class="main">
+      <table class="table-auto">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefono</th>
+            <th>Indirizzo</th>
+            <th>Note</th>
+            <th>Ticket attivi</th>
+            <th>Azioni</th>
+          </tr>
+        </thead>
+        <tbody id="tabellaClienti"></tbody>
+      </table>
+    </div>
+    
   </div>
 
 </div>
