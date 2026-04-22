@@ -31,8 +31,10 @@
 
     <h2>Nuovo Ticket</h2>
     <select id="clienteTicket"></select>
-    <input style="display:flex; align-items:center; gap:10px; margin-bottom:8px;" type="text" id="titoloTicket" placeholder="Titolo">
-    <textarea style="display:flex; align-items:center; gap:10px; margin-bottom:8px;" id="descrizioneTicket" placeholder="Descrizione"></textarea>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+      <input type="text" id="titoloTicket" placeholder="Titolo">
+      <textarea id="descrizioneTicket" placeholder="Descrizione"></textarea>
+    </div>
     <select id="prioritaTicket">
       <option>Bassa</option>
       <option selected>Normale</option>
