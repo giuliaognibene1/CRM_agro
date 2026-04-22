@@ -493,4 +493,41 @@ li.generic-row{
   .col-data{ width:80px; }
   .col-azione{ width:50px; }
 }
-```
+
+/* FIX INPUT/TEXTAREA MOBILE: mai oltre lo schermo */
+@media (max-width: 768px){
+
+  html,
+  body{
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  .main,
+  form,
+  .sezione,
+  .modal-content{
+    min-width:0;
+    width:100%;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="date"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="password"],
+  select,
+  textarea{
+    display:block;
+    width:100%;
+    max-width:100%;
+    min-width:0;
+    box-sizing:border-box;
+  }
+
+  textarea{
+    resize:vertical;
+  }
+}
