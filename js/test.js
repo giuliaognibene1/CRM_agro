@@ -42,6 +42,7 @@ sizes.forEach(s => {
 
 sel.onchange = render;
 
+
 function render() {
   let i = sizes.indexOf(Number(sel.value));
   let list = document.getElementById('list');
@@ -49,35 +50,58 @@ function render() {
 
   let t = 0, r = 0;
 
+  // 1. raggruppo per categoria
+  let grouped = {};
+
   data.forEach(x => {
-    let q = x[2][i];
-    if (!q) return;
+    let cat = x[0];
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(x);
+  });
 
-    t++;
+  // 2. render per categoria
+  Object.keys(grouped).forEach(cat => {
 
-    let k = x[1] + '_' + i;
+    // titolo categoria
+    let title = document.createElement('div');
+    title.textContent = cat;
+    title.className = 'cat-title';
+    list.appendChild(title);
 
-    if (done[k]) r++;
+    // separatore
+    let sep = document.createElement('div');
+    sep.className = 'cat-sep';
+    list.appendChild(sep);
 
-    let d = document.createElement('div');
-    d.className = 'material-row';
+    grouped[cat].forEach(x => {
+      let q = x[2][i];
+      if (!q) return;
 
-    d.innerHTML =
-      '<div class="cat">' + x[0] + '</div>' +
-      '<div>' + x[1] + '</div>' +
-      '<div>Qta: ' + q + '</div>';
+      t++;
 
-    let b = document.createElement('button');
-    b.textContent = done[k] ? 'PRONTO' : 'Segna pronto';
-    b.className = done[k] ? 'btn-ready' : 'btn-pending';
+      let k = x[1] + '_' + i;
+      if (done[k]) r++;
 
-    b.onclick = () => {
-      done[k] = !done[k];
-      render();
-    };
+      let d = document.createElement('div');
+      d.className = 'material-row';
 
-    d.appendChild(b);
-    list.appendChild(d);
+      d.innerHTML =
+        '<div></div>' +
+        '<div>' + x[1] + '</div>' +
+        '<div>Qta: ' + q + '</div>';
+
+      let b = document.createElement('button');
+      b.textContent = done[k] ? 'PRONTO' : 'Segna pronto';
+      b.className = done[k] ? 'btn-ready' : 'btn-pending';
+
+      b.onclick = () => {
+        done[k] = !done[k];
+        render();
+      };
+
+      d.appendChild(b);
+      list.appendChild(d);
+    });
   });
 
   document.getElementById('count').textContent =
