@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hangar Materiale Completo</title>
+
+  <script defer src="js/test.js"></script>
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <div class="sidebar">
+        <div class="logo-box">
+          <img src="logo.png" alt="Logo azienda">
+        </div>
+
+        <ul>
+            <li onclick="location.href='index.html'">📊 Dashboard</li>
+            <li onclick="location.href='clienti.html'">👥 Clienti</li>
+            <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+            <li onclick="location.href='calendario.html'">📅 Calendario</li>
+            <li class="active" onclick="location.href='configuratore.html'">⚙️ Configuratori</li>
+            <li onclick="location.href='prelievo.html'">📦️ Prelievo materiali</li>
+        </ul>
+    </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="dashboard-header">
+      <h1>Preparazione Materiale Hangar</h1>
+    </div>
+
+    <label>Misura:</label>
+    <select id="size"></select>
+    <span id="count"></span>
+
+    <div id="list"></div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
