@@ -553,3 +553,48 @@ li.generic-row{
   background:#dcdde1;
   margin-bottom:10px;
 }
+
+.material-row{
+  display:grid;
+  grid-template-columns: 1fr auto;
+  gap:10px;
+  align-items:center;
+}
+
+/* nome elemento */
+.material-name{
+  font-weight:600;
+  color:#2f3640;
+  word-break:break-word;
+}
+
+/* quantità */
+.material-qty{
+  color:#636e72;
+  white-space:nowrap;
+}
+
+/* bottone sempre allineato */
+.material-row button{
+  justify-self:end;
+  width:auto;
+  min-width:140px;
+}
+
+/* MOBILE: tutto in colonna */
+@media (max-width:768px){
+
+  .material-row{
+    grid-template-columns:1fr;
+    gap:6px;
+  }
+
+  .material-row button{
+    width:100%;
+  }
+
+  .material-qty{
+    font-size:14px;
+  }
+
+}
