@@ -537,3 +537,19 @@ li.generic-row{
   background:#b2bec3;
   color:#2d3436;
 }
+
+.cat-title{
+  text-align:center;
+  font-size:18px;
+  font-weight:700;
+  margin-top:25px;
+  margin-bottom:6px;
+  color:#2f3640;
+  letter-spacing:1px;
+}
+
+.cat-sep{
+  height:1px;
+  background:#dcdde1;
+  margin-bottom:10px;
+}
