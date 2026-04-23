@@ -13,6 +13,13 @@ const dati = {
         comuni: {
         "TRAVE 6,60m": 2,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 6,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 12,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 19,
         "CAVALLOTTO A TETTO x TUBO D.48": 54,
         "BAIONETTA x TUBO D.48": 18,
@@ -20,25 +27,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 34,
         "LAMIERA CALANDRATA 3,00m": 17,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 6,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 12,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 12,
         "TUBO ARCATO FLANGIA QUADRA D.140": 12,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_14_20: {
         comuni: {
         "TRAVE 6,60m": 2,
         "TRAVE 7,60m": 2,
+        "GRONDAIETTA 1,40m": 2,
+        "GRONDAIETTA 3,30m": 8,
+        "TASSELLO x GRONDAIETTA": 1
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 14,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 23,
         "CAVALLOTTO A TETTO x TUBO D.48": 63,
         "BAIONETTA x TUBO D.48": 18,
@@ -46,25 +61,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 40,
         "LAMIERA CALANDRATA 3,00m": 20,
         "FARFALLE x LAMIERA": 50,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 1,40m": 2,
-        "GRONDAIETTA 3,30m": 8,
-        "TASSELLO x GRONDAIETTA": 1
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 14,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 7,
         "TUBO ARCATO FLANGIA QUADRA D.140": 14,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_18_60: {
         comuni: {
         "TRAVE 6,60m": 4,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 10,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 18,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 32,
         "CAVALLOTTO A TETTO x TUBO D.48": 81,
         "BAIONETTA x TUBO D.48": 27,
@@ -72,25 +95,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 52,
         "LAMIERA CALANDRATA 3,00m": 26,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 10,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 18,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 9,
         "TUBO ARCATO FLANGIA QUADRA D.140": 18,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_20_80: {
         comuni: {
         "TRAVE 6,60m": 4,
         "TRAVE 7,60m": 2,
+        "GRONDAIETTA 1,40m": 2,
+        "GRONDAIETTA 3,30m": 12,
+        "TASSELLO x GRONDAIETTA": 1
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 20,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 32,
         "CAVALLOTTO A TETTO x TUBO D.48": 90,
         "BAIONETTA x TUBO D.48": 27,
@@ -98,25 +129,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 58,
         "LAMIERA CALANDRATA 3,00m": 29,
         "FARFALLE x LAMIERA": 50,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 1,40m": 2,
-        "GRONDAIETTA 3,30m": 12,
-        "TASSELLO x GRONDAIETTA": 1
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 20,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 10,
         "TUBO ARCATO FLANGIA QUADRA D.140": 20,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_25_20: {
         comuni: {
         "TRAVE 6,60m": 6,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 14,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 24,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 41,
         "CAVALLOTTO A TETTO x TUBO D.48": 108,
         "BAIONETTA x TUBO D.48": 36,
@@ -124,25 +163,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 70,
         "LAMIERA CALANDRATA 3,00m": 35,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 14,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 24,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 12,
         "TUBO ARCATO FLANGIA QUADRA D.140": 24,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_27_40: {
         comuni: {
         "TRAVE 6,60m": 6,
         "TRAVE 7,60m": 2,
+        "GRONDAIETTA 1,40m": 2,
+        "GRONDAIETTA 3,30m": 16,
+        "TASSELLO x GRONDAIETTA": 1
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 26,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 45,
         "CAVALLOTTO A TETTO x TUBO D.48": 117,
         "BAIONETTA x TUBO D.48": 36,
@@ -150,25 +197,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 76,
         "LAMIERA CALANDRATA 3,00m": 38,
         "FARFALLE x LAMIERA": 50,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 1,40m": 2,
-        "GRONDAIETTA 3,30m": 16,
-        "TASSELLO x GRONDAIETTA": 1
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 26,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 13,
         "TUBO ARCATO FLANGIA QUADRA D.140": 26,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_31_80: {
         comuni: {
         "TRAVE 6,60m": 8,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 18,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 30,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 50,
         "CAVALLOTTO A TETTO x TUBO D.48": 135,
         "BAIONETTA x TUBO D.48": 45,
@@ -176,25 +231,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 88,
         "LAMIERA CALANDRATA 3,00m": 44,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 18,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 30,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 15,
         "TUBO ARCATO FLANGIA QUADRA D.140": 30,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_34_00: {
         comuni: {
         "TRAVE 6,60m": 8,
         "TRAVE 7,60m": 2,
+        "GRONDAIETTA 1,40m": 2,
+        "GRONDAIETTA 3,30m": 20,
+        "TASSELLO x GRONDAIETTA": 1
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 32,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 54,
         "CAVALLOTTO A TETTO x TUBO D.48": 144,
         "BAIONETTA x TUBO D.48": 45,
@@ -202,25 +265,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 94,
         "LAMIERA CALANDRATA 3,00m": 47,
         "FARFALLE x LAMIERA": 59,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 1,40m": 2,
-        "GRONDAIETTA 3,30m": 20,
-        "TASSELLO x GRONDAIETTA": 1
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 32,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 16,
         "TUBO ARCATO FLANGIA QUADRA D.140": 32,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_38_40: {
         comuni: {
         "TRAVE 6,60m": 10,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 22,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 36,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 59,
         "CAVALLOTTO A TETTO x TUBO D.48": 162,
         "BAIONETTA x TUBO D.48": 54,
@@ -228,25 +299,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 106,
         "LAMIERA CALANDRATA 3,00m": 53,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 22,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 36,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 18,
         "TUBO ARCATO FLANGIA QUADRA D.140": 36,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_40_60: {
         comuni: {
         "TRAVE 6,60m": 10,
         "TRAVE 7,60m": 2,
+        "GRONDAIETTA 1,40m": 2,
+        "GRONDAIETTA 3,30m": 24,
+        "TASSELLO x GRONDAIETTA": 1
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 38,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 63,
         "CAVALLOTTO A TETTO x TUBO D.48": 171,
         "BAIONETTA x TUBO D.48": 54,
@@ -254,25 +333,33 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 112,
         "LAMIERA CALANDRATA 3,00m": 56,
         "FARFALLE x LAMIERA": 50,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 1,40m": 2,
-        "GRONDAIETTA 3,30m": 24,
-        "TASSELLO x GRONDAIETTA": 1
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 38,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 19,
         "TUBO ARCATO FLANGIA QUADRA D.140": 38,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
     lung_45_00: {
         comuni: {
         "TRAVE 6,60m": 12,
         "TRAVE 5,40m": 2,
+        "GRONDAIETTA 2,50m": 2,
+        "GRONDAIETTA 3,30m": 26,
+        "TASSELLO x GRONDAIETTA": 24
+        },
+        mod_10_40: {
+        "TUBO ARCATO D.101": 12,
+        "KIT BULLONI x TUBO D.101": 1,
         "TUBO D.48 L.6m": 72,
         "CAVALLOTTO A TETTO x TUBO D.48": 198,
         "BAIONETTA x TUBO D.48": 63,
@@ -280,19 +367,20 @@ const dati = {
         "LAMIERA CALANDRATA 6,60m": 124,
         "LAMIERA CALANDRATA 3,00m": 62,
         "FARFALLE x LAMIERA": 170,
-        "KIT BULLONI x LAMIERA": 1,
-        "GRONDAIETTA 2,50m": 2,
-        "GRONDAIETTA 3,30m": 26,
-        "TASSELLO x GRONDAIETTA": 24
-        },
-        mod_10_40: {
-        "TUBO ARCATO D.101": 12,
-        "KIT BULLONI x TUBO D.101": 1
+        "KIT BULLONI x LAMIERA": 1
         },
         mod_13_30: {
         "TUBO ARCATO FLANGIA TONDA D.140": 12,
         "TUBO ARCATO FLANGIA QUADRA D.140": 12,
-        "KIT BULLONI x TUBO D.101": 1,
+        "KIT BULLONI x TUBO D.140": 1,
+        "TUBO D.48 L.6m": 19,
+        "CAVALLOTTO A TETTO x TUBO D.48": 54,
+        "BAIONETTA x TUBO D.48": 18,
+        "KIT BULLONI x TUBO D.48": 1,
+        "LAMIERA CALANDRATA 6,60m": 34,
+        "LAMIERA CALANDRATA 7,80m": 17,
+        "FARFALLE x LAMIERA": 170,
+        "KIT BULLONI x LAMIERA": 1
         }
     },
 
