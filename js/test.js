@@ -69,7 +69,7 @@ function render() {
 
     let b = document.createElement('button');
     b.textContent = done[k] ? 'PRONTO' : 'Segna pronto';
-    b.className = done[k] ? 'ready' : 'off';
+    b.className = done[k] ? 'btn-ready' : 'btn-pending';
 
     b.onclick = () => {
       done[k] = !done[k];
