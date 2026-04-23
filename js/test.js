@@ -42,7 +42,6 @@ sizes.forEach(s => {
 
 sel.onchange = render;
 
-
 function render() {
   let i = sizes.indexOf(Number(sel.value));
   let list = document.getElementById('list');
@@ -107,6 +106,5 @@ function render() {
   document.getElementById('count').textContent =
     ' Preparati ' + r + '/' + t;
 }
-
 sel.value = sizes[0];
 render();
