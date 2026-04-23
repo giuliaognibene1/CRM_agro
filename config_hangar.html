@@ -1,11 +1,112 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <title>Configuratore Macchina Pivot</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuratore Macchina Pivot</title>
+<link rel="stylesheet" href="css/style.css">
+
+<!-- libreria PDF -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- tuo javascript separato -->
+<script defer src="js/config_hangar.js"></script>
 </head>
+
 <body>
 
-<h1>QUESTA PAGINA E' ANCORA VUOTA</h1>
+<div class="dashboard">
+
+    <div class="sidebar">
+        <div class="logo-box">
+          <img src="logo.png" alt="Logo azienda">
+        </div>
+
+        <ul>
+            <li onclick="location.href='index.html'">📊 Dashboard</li>
+            <li onclick="location.href='clienti.html'">👥 Clienti</li>
+            <li onclick="location.href='ticket.html'">🎫 Ticket</li>
+            <li onclick="location.href='calendario.html'">📅 Calendario</li>
+            <li class="active" onclick="location.href='configuratore.html'">⚙️ Configuratori</li>
+            <li onclick="location.href='prelievo.html'">📦️ Prelievo materiali</li>
+        </ul>
+    </div>
+
+    <div class="main">
+
+        <h1>Configuratore hangar</h1>
+
+        <h3>NOME CLIENTE: *</h3>
+        <input type="text" id="cliente" placeholder="Inserisci nome cliente">
+
+        <br><br>
+
+        <!-- MODELLO HANGAR -->
+        <h3>MODELLO DI HANGAR</h3>
+
+        <label>Modello:</label>
+        <select id="modello" data-cat="Modello" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="mod_10_40">Modello 10,40</option>
+            <option value="mod_13_30">Modello 13,30</option>
+        </select>
+
+        <br><br>
+
+        <!-- LUNGHEZZE -->
+        <h3>LUNGHEZZA</h3>
+
+        <label>Lunghezza:</label>
+        <select data-cat="Lunghezza" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="lung_12_00">12,00m</option>
+            <option value="lung_14_20">14,20m</option>
+            <option value="lung_18_60">18,60m</option>
+            <option value="lung_20_80">20,80m</option>
+            <option value="lung_25_20">25,20m</option>
+            <option value="lung_27_40">27,40m</option>
+            <option value="lung_31_80">31,80m</option>
+            <option value="lung_34_00">34,00m</option>
+            <option value="lung_38_40">38,40m</option>
+            <option value="lung_40_60">40,60m</option>
+            <option value="lung_45_00">45,00m</option>
+        </select>
+
+        <br><br>
+
+        <!-- PORTONE -->
+        <h3>Testata con portone</h3>
+
+        <label>Portone:</label>
+        <select data-cat="Portone" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="una_testata_portone">1 testata con portone</option>
+            <option value="due_testate_portone">2 testate con portone</option>
+        </select>
+
+        <br><br>
+
+        <!-- PARETE CIECA -->
+        <h3>Testata con parete chiusa</h3>
+
+        <label>Parete chiusa:</label>
+        <select data-cat="Parete chiusa" onchange="aggiorna()">
+            <option value="">-- Seleziona --</option>
+            <option value="zero_testata_chiusa">Nessuna testata chiusa</option>
+            <option value="una_testate_chiusa">1 testata chiusa</option>
+        </select>
+
+        <h2>Materiali per categoria</h2>
+        <div id="perCategoria"></div>
+
+        <h2>Totale materiali</h2>
+        <ul id="totale"></ul>
+
+        <button type="button" onclick="generaPDF()">
+            Esporta PDF
+        </button>
+    </div>
+</div>
+
 </body>
 </html>
