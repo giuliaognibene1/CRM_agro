@@ -84,10 +84,10 @@ function render() {
       let d = document.createElement('div');
       d.className = 'material-row';
 
-      d.innerHTML =
-        '<div></div>' +
-        '<div>' + x[1] + '</div>' +
-        '<div>Qta: ' + q + '</div>';
+      d.innerHTML = `
+        <div class="material-name">${x[1]}</div>
+        <div class="material-qty">Qta: <b>${q}</b></div>
+      `;
 
       let b = document.createElement('button');
       b.textContent = done[k] ? 'PRONTO' : 'Segna pronto';
