@@ -515,22 +515,66 @@ function aggiorna() {
 
         blocco.appendChild(titolo);
 
-        let ul = document.createElement("ul");
+        const gruppi = {
+            "TRAVI": [],
+            "GRONDAIETTE": [],
+            "TUBI": [],
+            "LAMIERE": [],
+            "KIT BULLONI": [],
+            "ALTRO": []
+        };
 
         for (let pezzo in perCategoria[cat]) {
 
-            let li = document.createElement("li");
-
-            li.innerHTML = `
-                <span class="qty">${perCategoria[cat][pezzo]}</span>
-                <span class="sep">x</span>
-                <span class="name">${pezzo}</span>
+            let testo = `
+                <li>
+                    <span class="qty">${perCategoria[cat][pezzo]}</span>
+                    <span class="sep">x</span>
+                    <span class="name">${pezzo}</span>
+                </li>
             `;
 
-            ul.appendChild(li);
+            if (pezzo.includes("TRAVE"))
+                gruppi["TRAVI"].push(testo);
+
+            else if (pezzo.includes("GRONDAIETTA") || pezzo.includes("TASSELLO"))
+                gruppi["GRONDAIETTE"].push(testo);
+
+            else if (
+                pezzo.includes("TUBO") ||
+                pezzo.includes("CAVALLOTTO") ||
+                pezzo.includes("BAIONETTA")
+            )
+                gruppi["TUBI"].push(testo);
+
+            else if (
+                pezzo.includes("LAMIERA") ||
+                pezzo.includes("FARFALLE")
+            )
+                gruppi["LAMIERE"].push(testo);
+
+            else if (pezzo.includes("KIT BULLONI"))
+                gruppi["KIT BULLONI"].push(testo);
+
+            else
+                gruppi["ALTRO"].push(testo);
         }
 
-        blocco.appendChild(ul);
+        for (let nomeGruppo in gruppi) {
+
+            if (gruppi[nomeGruppo].length === 0)
+                continue;
+
+            let h4 = document.createElement("h4");
+            h4.textContent = nomeGruppo;
+
+            blocco.appendChild(h4);
+
+            let ul = document.createElement("ul");
+            ul.innerHTML = gruppi[nomeGruppo].join("");
+
+            blocco.appendChild(ul);
+        }
         divCat.appendChild(blocco);
     }
 
