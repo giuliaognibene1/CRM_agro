@@ -598,3 +598,21 @@ li.generic-row{
   }
 
 }
+
+
+.categoria h4{
+    margin-top:18px;
+    margin-bottom:6px;
+    padding-bottom:4px;
+    border-bottom:1px solid #ddd;
+    color:#1d3557;
+}
+
+.categoria ul{
+    margin-top:0;
+    margin-bottom:12px;
+}
+
+.categoria li{
+    margin:4px 0;
+}
