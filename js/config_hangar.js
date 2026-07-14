@@ -443,6 +443,38 @@ const dati = {
     }
 };
 
+const prezzi = {
+
+    mod_10_40: {
+        lung_12_00: 18000,
+        lung_14_20: 20500,
+        lung_18_60: 28200,
+        lung_20_80: 31000,
+        lung_25_20: 36500,
+        lung_27_40: 40000,
+        lung_31_80: 47500,
+        lung_34_00: 50000,
+        lung_38_40: 56000,
+        lung_40_60: 59000,
+        lung_45_00: 64600
+    },
+
+    mod_13_30: {
+        lung_12_00: 1200,
+        lung_14_20: 2200,
+        lung_18_60: 3200,
+        lung_20_80: 4200,
+        lung_25_20: 5200,
+        lung_27_40: 6200,
+        lung_31_80: 7200,
+        lung_34_00: 8200,
+        lung_38_40: 9200,
+        lung_40_60: 10200,
+        lung_45_00: 11200
+    }
+
+};
+
 /* =====================================================
    CALCOLO CONFIGURAZIONE
    ===================================================== */
@@ -477,6 +509,7 @@ function nomePulito(valore) {
 function aggiorna() {
 
     let modello = document.getElementById("modello").value;
+    let prezzo = 0;
     let totale = {};
     let perCategoria = {};
     let composizione = {};
@@ -630,6 +663,15 @@ function aggiorna() {
 
         ulTot.appendChild(li);
     }
+
+    const lunghezza = document.querySelector('[data-cat="Lunghezza"]').value;
+
+    if (modello && lunghezza) {
+        prezzo = prezzi[modello][lunghezza];
+    }
+
+    document.getElementById("prezzo").innerHTML =
+        prezzo.toLocaleString("it-IT") + " €";
 }
 
 
